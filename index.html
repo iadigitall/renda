@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como Fazer Dinheiro com IA do Zero | Método Direto</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #070A0F;
+      --card: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.10);
+      --text: #EAF0FF;
+      --muted: rgba(234,240,255,.72);
+
+      --brand: #22C55E;     /* verde dinheiro */
+      --brand2:#16A34A;
+      --accent:#F59E0B;     /* dourado urgência */
+      --danger:#EF4444;     /* vermelho pressão */
+
+      --shadow: 0 18px 70px rgba(0,0,0,.55);
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+
+
+
+
+.testimonial-card{
+  background:#131824;
+  padding:22px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  transition:.3s;
+}
+
+.testimonial-card:hover{
+  transform:translateY(-6px);
+}
+
+.testimonial-card img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:16px;
+}
+
+.stars{
+  color:#f5c542;
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.testimonial-card h4{
+  color:white;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.testimonial-card p{
+  color:#ffffffcc;
+  font-size:14px;
+}
+
+
+
+
+
+
+
+
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body{
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 18% 0%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(900px 520px at 92% 8%, rgba(245,158,11,.14), transparent 55%),
+        radial-gradient(900px 520px at 70% 90%, rgba(239,68,68,.12), transparent 55%),
+        linear-gradient(180deg, #06080D, #070A0F);
+      overflow-x: hidden;
+    }
+
+    .glass{ background: rgba(255,255,255,.06); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); }
+    .shadow-strong{ box-shadow: var(--shadow); }
+    .softline{ height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      border-radius: 9999px; padding: 1.05rem 1.25rem;
+      font-weight: 900; letter-spacing: -0.02em;
+      transition: transform .15s var(--ease), filter .15s var(--ease), box-shadow .15s var(--ease);
+      user-select:none;
+      text-transform: uppercase;
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .btn-primary{
+      background: linear-gradient(180deg, var(--brand), var(--brand2));
+      color: #07110A;
+      box-shadow: 0 16px 45px rgba(34,197,94,.25);
+    }
+    .btn-primary:hover{ filter: brightness(1.06); transform: translateY(-1px); }
+
+    .btn-danger{
+      background: linear-gradient(180deg, var(--danger), #B91C1C);
+      color: #fff;
+      box-shadow: 0 16px 45px rgba(239,68,68,.24);
+    }
+    .btn-danger:hover{ filter: brightness(1.06); transform: translateY(-1px); }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:.5rem;
+      border-radius: 9999px; padding: .45rem .8rem;
+      background: rgba(245,158,11,.12);
+      border: 1px solid rgba(245,158,11,.25);
+      color: rgba(255,255,255,.92);
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:.45rem;
+      border-radius: 9999px; padding: .42rem .74rem;
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.20);
+      color: rgba(234,240,255,.92);
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .fadeUp{ animation: fadeUp .55s var(--ease) both; }
+    @keyframes fadeUp{ from{ opacity:0; transform: translateY(12px);} to{ opacity:1; transform: translateY(0);} }
+
+    .kpi{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+
+    .card{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      border-radius: 22px;
+      padding: 18px;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+      will-change: transform;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(34,197,94,.28);
+      box-shadow: 0 18px 70px rgba(0,0,0,.45);
+    }
+
+    .bigNumber{
+      font-weight: 950;
+      letter-spacing: -0.03em;
+    }
+
+    /* CTA flutuante */
+    .floating-cta{
+      position: fixed;
+      left: 0; right: 0;
+      bottom: 0;
+      z-index: 60;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(7,10,15,0), rgba(7,10,15,.92) 35%, rgba(7,10,15,.98));
+      border-top: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+
+    /* FAQ */
+    .faq-item{ border: 1px solid rgba(255,255,255,.12); border-radius: 18px; overflow:hidden; background: rgba(255,255,255,.05); }
+    .faq-q{ width: 100%; text-align:left; padding: 16px 16px; display:flex; align-items:center; justify-content:space-between; gap: 14px; font-weight: 900; }
+    .faq-a{ max-height: 0; overflow: hidden; transition: max-height .35s var(--ease); padding: 0 16px; color: rgba(234,240,255,.82); }
+    .faq-item.active .faq-a{ max-height: 260px; padding-bottom: 16px; }
+    .faq-icon{ width: 34px; height: 34px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); font-weight: 900; }
+
+    /* Responsivo */
+    @media (max-width: 768px){
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-50">
+    <div class="glass">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black">IA</div>
+          <div class="leading-tight">
+            <div class="font-extrabold tracking-tight">Dinheiro com IA do Zero</div>
+            <div class="text-xs text-white/70">Método direto • Aplicação • Venda</div>
+          </div>
+        </div>
+        <a href="#oferta" class="btn btn-primary text-sm">Quero acessar agora <span>→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (Nível 2-3: problema -> solução) -->
+  <main class="max-w-6xl mx-auto px-4">
+    <section class="pt-12 pb-10">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="fadeUp">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="badge">⚠️ Oportunidade agora</span>
+            <span class="pill">Para iniciantes</span>
+            <span class="pill">Sem aparecer</span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+            Pare de <span class="text-white/70">só assistir</span> outros ganhando dinheiro com IA.
+            <span class="text-[var(--brand)]">Copie um método</span> e comece do zero.
+          </h1>
+
+          <p class="mt-4 text-lg text-white/80 leading-relaxed">
+            Um passo a passo direto para transformar IA em renda no digital — com foco em execução e venda.
+            Eu usei essa lógica e fiz <span class="font-extrabold text-white">R$ 15.000 em 2 semanas e meia</span>.
+          </p>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="#vsl" class="btn btn-danger">Quero ver como funciona <span>↓</span></a>
+            <a href="#provas" class="btn btn-primary">Quero acessar o método <span>→</span></a>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="kpi">
+              <div class="text-xs text-white/70">Tempo/dia</div>
+              <div class="text-xl font-black">30–60 min</div>
+            </div>
+            <div class="kpi">
+              <div class="text-xs text-white/70">Nível</div>
+              <div class="text-xl font-black">Do zero</div>
+            </div>
+            <div class="kpi">
+              <div class="text-xs text-white/70">Foco</div>
+              <div class="text-xl font-black">Venda</div>
+            </div>
+          </div>
+
+          <p class="mt-4 text-xs text-white/60">
+            *Resultados variam conforme execução. Conteúdo educacional; não é promessa de renda garantida.
+          </p>
+        </div>
+
+        <!-- BOX PROVA/MECANISMO -->
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm text-white/70 font-semibold">O que você vai copiar</div>
+                <div class="text-2xl font-black tracking-tight mt-1">Mecanismo Simples de Renda com IA</div>
+                <div class="text-sm text-white/70 mt-1">Ferramenta → Aplicação → Oferta → Venda</div>
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--accent)]">★</div>
+            </div>
+
+            <div class="softline my-4"></div>
+
+            <div class="grid gap-3">
+              <div class="card">
+                <div class="font-black">1) Você escolhe um modelo</div>
+                <div class="text-white/70 text-sm mt-1">Nada de ficar perdido com 30 opções. Você escolhe 1 e executa.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">2) Você cria com IA (rápido)</div>
+                <div class="text-white/70 text-sm mt-1">Templates, prompts e estrutura para produzir com velocidade.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">3) Você vende (sem aparecer)</div>
+                <div class="text-white/70 text-sm mt-1">Mensagens + oferta + rotina de venda pelo WhatsApp/Instagram.</div>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <a href="#oferta" class="btn btn-primary w-full">Quero começar agora <span>→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="softline"></div>
+
+    <!-- VSL / VÍDEO (padrão top sellers) -->
+    <section id="vsl" class="py-12">
+      <div class="fadeUp">
+        <div class="glass shadow-strong rounded-3xl p-4">
+          <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black">
+            <!-- Troque pelo seu vídeo -->
+          <iframe 
+  width="100%" 
+  height="100%" 
+  src="https://www.youtube.com/embed/UynCG_el504" 
+  title="Vídeo Apresentação"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+          </div>
+
+          <div class="mt-4 text-center">
+            <p class="text-white font-semibold">Veja como pessoas comuns estão transformando IA em renda real todos os dias.</p>
+            <p class="text-xs text-white/60 mt-1">Se você continuar só assistindo, vai continuar só assistindo os outros faturarem..</p>
+          </div>
+
+          <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#provas" class="btn btn-danger">Quero ver provas <span>→</span></a>
+            <a href="#oferta" class="btn btn-primary">Quero acessar o método <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="softline"></div>
+
+    <!-- AGITAÇÃO (nível 2 -> 3) -->
+    <section class="py-12">
+      <div class="grid lg:grid-cols-2 gap-6 items-start">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            Se você está quebrado(a) no digital, não é falta de “ferramenta”.
+            É falta de <span class="text-[var(--accent)]">rota</span>.
+          </h2>
+          <p class="mt-4 text-white/80 leading-relaxed">
+            A maioria vê conteúdo de IA e acha que é só “apertar botão”.
+            Depois descobre que não sabe: o que vender, como vender, como cobrar, como entregar.
+            Aí trava.
+          </p>
+
+          <div class="mt-5 grid gap-3">
+            <div class="card">
+              <div class="font-black">Você já tentou e ficou perdido?</div>
+              <div class="text-white/70 text-sm mt-1">Isso acontece porque te deram “pedaços”, não um método fechado.</div>
+            </div>
+            <div class="card">
+              <div class="font-black">Você tem pouco tempo?</div>
+              <div class="text-white/70 text-sm mt-1">Por isso o método foca no que dá dinheiro: execução + venda.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-6">
+            <div class="flex items-start gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">✓</div>
+              <div>
+                <div class="text-2xl font-black tracking-tight">A promessa é simples:</div>
+                <p class="text-white/80 mt-2">
+                  Você vai pegar um caminho que já foi usado na prática,
+                  com estrutura, mensagens e execução — para sair do zero e começar a vender.
+                </p>
+              </div>
+            </div>
+
+            <div class="softline my-5"></div>
+
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="card">
+                <div class="font-black">Sem aparecer</div>
+                <div class="text-white/70 text-sm mt-1">Venda por texto/rotina.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">Sem confusão</div>
+                <div class="text-white/70 text-sm mt-1">Um método direto.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">Sem “milagre”</div>
+                <div class="text-white/70 text-sm mt-1">Só execução real.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">Com roteiro</div>
+                <div class="text-white/70 text-sm mt-1">Passo a passo.</div>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <a href="#oferta" class="btn btn-danger w-full">Quero entrar agora <span>→</span></a>
+              <p class="text-xs text-white/60 mt-2 text-center">Se você adiar, alguém ocupa seu lugar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="softline"></div>
+
+    <!-- O QUE VOCÊ RECEBE (produto-aware friendly) -->
+    <section class="py-12">
+      <div class="fadeUp">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+          O que você recebe ao entrar
+        </h2>
+        <p class="mt-3 text-white/80 max-w-3xl">
+          Não é “motivação”. É material aplicável com roteiro, modelos e execução.
+        </p>
+      </div>
+
+      <div class="mt-7 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Conteúdo principal</div>
+          <div class="text-xl font-black mt-1">eBook Método do Zero</div>
+          <div class="text-white/70 text-sm mt-2">Estrutura completa para sair do zero e transformar IA em venda.</div>
+        </div>
+
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Execução</div>
+          <div class="text-xl font-black mt-1">Checklist de Ação</div>
+          <div class="text-white/70 text-sm mt-2">Você sabe exatamente o que fazer hoje, amanhã e no resto da semana.</div>
+        </div>
+
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Venda</div>
+          <div class="text-xl font-black mt-1">Mensagens Prontas</div>
+          <div class="text-white/70 text-sm mt-2">Textos para abordagem, fechamento e follow-up sem parecer robô.</div>
+        </div>
+
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">IA aplicada</div>
+          <div class="text-xl font-black mt-1">Prompts Diretos</div>
+          <div class="text-white/70 text-sm mt-2">Prompts para produzir rápido (copy, oferta, scripts e ideias).</div>
+        </div>
+
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Estrutura</div>
+          <div class="text-xl font-black mt-1">Modelos de Oferta</div>
+          <div class="text-white/70 text-sm mt-2">Modelo de oferta simples que vende sem complicar.</div>
+        </div>
+
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Bônus</div>
+          <div class="text-xl font-black mt-1">Lista de Modelos de Renda</div>
+          <div class="text-white/70 text-sm mt-2">Você escolhe um caminho e executa (sem ficar pulando de galho).</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="softline"></div>
+
+    <!-- PROVAS -->
+<section id="provas" class="py-20 bg-[#0b0f14]">
+  <div class="max-w-6xl mx-auto px-4">
+
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-black text-white">
+        O que os alunos estão dizendo
+      </h2>
+      <p class="text-white/60 mt-3">
+        Resultados reais de pessoas comuns usando o método.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- PROVA 1 -->
+      <div class="testimonial-card">
+        <img src="prova1.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Bianca</h4>
+        <p>"Primeira venda em menos de 48 horas aplicando exatamente o método."</p>
+      </div>
+
+      <!-- PROVA 2 -->
+      <div class="testimonial-card">
+        <img src="prova2.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Rafael B</h4>
+        <p>"Nunca pensei que IA pudesse gerar dinheiro desse jeito."</p>
+      </div>
+
+      <!-- PROVA 3 -->
+      <div class="testimonial-card">
+        <img src="prova3.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Luan Santos</h4>
+        <p>"Já consegui fazer minhas primeiras vendas."</p>
+      </div>
+
+      <!-- PROVA 4 -->
+      <div class="testimonial-card">
+        <img src="prova4.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Gabriela Rocha</h4>
+        <p>"Um salário que nunca imaginei ter."</p>
+      </div>
+
+      <!-- PROVA 5 -->
+      <div class="testimonial-card">
+        <img src="prova5.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Jessica</h4>
+        <p>"Sua mentoria é direta e eficiente."</p>
+      </div>
+
+      <!-- PROVA 6 -->
+      <div class="testimonial-card">
+        <img src="prova6.PNG">
+        <div class="stars">★★★★★</div>
+        <h4>Rafael</h4>
+        <p>"Melhor decisão que tomei esse ano."</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+    <div class="softline"></div>
+
+    <!-- GARANTIA + OFERTA -->
+    <section id="oferta" class="py-12">
+      <div class="grid lg:grid-cols-2 gap-6 items-start">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            Ou você entra agora… ou você continua assistindo de fora.
+          </h2>
+          <p class="mt-3 text-white/80">
+            Esse tipo de oportunidade não fica “boa” pra sempre. O jogo muda rápido.
+            Quem executa primeiro, leva.
+          </p>
+
+          <div class="mt-5 card">
+            <div class="flex items-start gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">7</div>
+              <div>
+                <div class="font-black text-xl">Garantia de 7 dias</div>
+                <p class="text-white/70 text-sm mt-1">
+                  Você acessa, testa e decide. Se não fizer sentido, você pede reembolso dentro do prazo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 card">
+            <div class="font-black text-xl">Bônus (pra acelerar)</div>
+            <ul class="mt-3 text-white/80 text-sm space-y-2">
+              <li>✅ Checklist de execução</li>
+              <li>✅ Mensagens prontas (WhatsApp/Instagram)</li>
+              <li>✅ Prompts diretos para copy e oferta</li>
+              <li>✅ Modelos simples de renda com IA</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <div class="text-sm text-white/70 font-semibold">Você vai receber</div>
+                <div class="text-2xl font-black tracking-tight">Dinheiro com IA do Zero</div>
+                <div class="text-sm text-white/60 mt-1">Método direto • Aplicação • Venda</div>
+              </div>
+              <span class="badge">Acesso imediato</span>
+            </div>
+
+            <div class="softline my-5"></div>
+
+            <!-- PREÇO (troque se precisar) -->
+            <div class="card">
+              <div class="text-white/70 text-sm">Preço hoje</div>
+              <div class="text-5xl bigNumber mt-1">
+                R$ <span class="text-[var(--brand)]">97</span>,90
+              </div>
+              <div class="text-white/60 text-sm mt-1">ou em até 12x</div>
+
+              <!-- LINK DE CHECKOUT: troque por seu link real -->
+              <a id="checkoutBtn" href="SEU_LINK_DE_CHECKOUT_AQUI" class="btn btn-primary w-full mt-5">
+                Quero acessar agora <span>→</span>
+              </a>
+
+              <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="kpi">
+                  <div class="font-black">Do zero</div>
+                  <div class="text-white/60 text-xs">Sem pré-requisito</div>
+                </div>
+                <div class="kpi">
+                  <div class="font-black">Sem aparecer</div>
+                  <div class="text-white/60 text-xs">Venda por texto</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-white/60 mt-4">
+                Ao clicar em “Quero acessar agora”, você será direcionado para o ambiente seguro de pagamento.
+              </p>
+            </div>
+
+            <div class="mt-4 text-center text-xs text-white/60">
+              ⚠️ Se você não agir agora, você volta pra estaca zero.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="softline"></div>
+
+    <!-- FAQ (fecha objeções do nível 3-4) -->
+    <section class="py-12">
+      <div class="fadeUp">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">Perguntas frequentes</h2>
+        <p class="mt-3 text-white/80">Objeção na mente mata compra. Aqui a gente destrava.</p>
+      </div>
+
+      <div class="mt-6 grid gap-3 max-w-3xl">
+        <div class="faq-item fadeUp">
+          <button class="faq-q">
+            <span>Serve para iniciantes absolutos?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p class="pt-0 mt-2">
+              Sim. A estrutura foi feita para quem está no zero e precisa de rota, não de teoria.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item fadeUp">
+          <button class="faq-q">
+            <span>Preciso investir dinheiro em anúncios?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p class="mt-2">
+              Não necessariamente. Você pode começar no orgânico com rotina e mensagens. Tráfego é um “plus”.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item fadeUp">
+          <button class="faq-q">
+            <span>Quanto tempo por dia eu preciso?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p class="mt-2">
+              30 a 60 minutos com consistência. O método é focado em execução.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item fadeUp">
+          <button class="faq-q">
+            <span>E se eu comprar e não gostar?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p class="mt-2">
+              Você tem garantia de 7 dias. Testa e decide com tranquilidade.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <a href="#oferta" class="btn btn-danger w-full">Quero acessar o método agora <span>→</span></a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pb-24 pt-8">
+      <div class="softline mb-6"></div>
+      <div class="text-sm text-white/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div>
+          <div class="font-bold text-white/80">Dinheiro com IA do Zero</div>
+          <div class="text-white/60">© <span id="year"></span> • Todos os direitos reservados.</div>
+        </div>
+        <div class="text-white/60">
+          <a class="hover:text-white font-semibold" href="#oferta">Comprar Agora</a>
+          <span class="text-white/30 mx-2">•</span>
+          <a class="hover:text-white font-semibold" href="#provas">Provas</a>
+          <span class="text-white/30 mx-2">•</span>
+          <a class="hover:text-white font-semibold" href="#vsl">Vídeo</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- CTA FLOUTANTE (padrão top sellers) -->
+  <div class="floating-cta">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div class="text-sm text-white/80">
+        <span class="font-black text-white">A hora é agora.</span> Clique e acesse o método.
+      </div>
+      <a href="#oferta" class="btn btn-primary sm:w-auto w-full">Quero acessar <span>→</span></a>
+    </div>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth anchor
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if(!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll(".faq-item").forEach((item) => {
+      const btn = item.querySelector(".faq-q");
+      const icon = item.querySelector(".faq-icon");
+      btn.addEventListener("click", () => {
+        const isOpen = item.classList.contains("active");
+        document.querySelectorAll(".faq-item").forEach(i => {
+          i.classList.remove("active");
+          const ic = i.querySelector(".faq-icon");
+          if(ic) ic.textContent = "+";
+        });
+        if(!isOpen){
+          item.classList.add("active");
+          icon.textContent = "−";
+        }
+      });
+    });
+  </script>
+
+ <script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const slider = document.getElementById("proof-slider");
+  let index = 0;
+
+  setInterval(()=>{
+    index++;
+
+    if(index > 3){
+      index = 0;
+    }
+
+    slider.style.transform = `translateX(-${index * 100}%)`;
+
+  }, 3500);
+
+});
+</script>
+
+
+</body>
+</html>
