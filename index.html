@@ -15,567 +15,264 @@
 
   <style>
     :root{
-      --bg: #0a0a0a;
-      --card: rgba(255,255,255,.05);
+      --bg: #070A0F;
+      --card: rgba(255,255,255,.06);
       --line: rgba(255,255,255,.10);
-      --text: #ffffff;
-      --muted: rgba(255,255,255,.7);
-      --brand: #22C55E;
+      --text: #EAF0FF;
+      --muted: rgba(234,240,255,.72);
+
+      --brand: #22C55E;     /* verde dinheiro */
       --brand2:#16A34A;
-      --accent:#F59E0B;
-      --danger:#EF4444;
+      --accent:#F59E0B;     /* dourado urgência */
+      --danger:#EF4444;     /* vermelho pressão */
+
       --shadow: 0 18px 70px rgba(0,0,0,.55);
       --ease: cubic-bezier(.16,1,.3,1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    html, body { 
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      scroll-behavior: smooth;
-    }
-    
+.testimonial-card{
+  background:#131824;
+  padding:22px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  transition:.3s;
+}
+
+.testimonial-card:hover{
+  transform:translateY(-6px);
+}
+
+.testimonial-card img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:16px;
+}
+
+.stars{
+  color:#f5c542;
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.testimonial-card h4{
+  color:white;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.testimonial-card p{
+  color:#ffffffcc;
+  font-size:14px;
+}
+
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     body{
       color: var(--text);
-      background: var(--bg);
+      background:
+        radial-gradient(1200px 700px at 18% 0%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(900px 520px at 92% 8%, rgba(245,158,11,.14), transparent 55%),
+        radial-gradient(900px 520px at 70% 90%, rgba(239,68,68,.12), transparent 55%),
+        linear-gradient(180deg, #06080D, #070A0F);
       overflow-x: hidden;
     }
 
-    /* Background gradients */
-    .bg-gradient {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background:
-        radial-gradient(1200px 700px at 18% 0%, rgba(34,197,94,.15), transparent 55%),
-        radial-gradient(900px 520px at 92% 8%, rgba(245,158,11,.1), transparent 55%),
-        radial-gradient(900px 520px at 70% 90%, rgba(239,68,68,.08), transparent 55%),
-        linear-gradient(180deg, #0a0a0a, #070a0f);
-    }
+    .glass{ background: rgba(255,255,255,.06); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); }
+    .shadow-strong{ box-shadow: var(--shadow); }
+    .softline{ height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); }
 
-    /* Glassmorphism */
-    .glass { 
-      background: rgba(255,255,255,.05); 
-      backdrop-filter: blur(20px); 
-      -webkit-backdrop-filter: blur(20px); 
-      border: 1px solid var(--line); 
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      border-radius: 9999px; padding: 1.05rem 1.25rem;
+      font-weight: 900; letter-spacing: -0.02em;
+      transition: transform .15s var(--ease), filter .15s var(--ease), box-shadow .15s var(--ease);
+      user-select:none;
+      text-transform: uppercase;
     }
-    
-    .glass-card {
-      background: rgba(255,255,255,.03);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 24px;
-      transition: all .3s var(--ease);
-    }
-    
-    .glass-card:hover {
-      border-color: rgba(34,197,94,.3);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(34,197,94,.1);
-    }
+    .btn:active{ transform: translateY(1px); }
 
-    .shadow-strong { box-shadow: var(--shadow); }
-    .softline { height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); }
+    .btn-primary{
+      background: linear-gradient(180deg, var(--brand), var(--brand2));
+      color: #07110A;
+      box-shadow: 0 16px 45px rgba(34,197,94,.25);
+    }
+    .btn-primary:hover{ filter: brightness(1.06); transform: translateY(-1px); }
 
-    /* Buttons */
-    .btn {
-      display: inline-flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: .6rem;
-      border-radius: 14px; 
-      padding: 1rem 1.5rem;
-      font-weight: 700; 
-      letter-spacing: -0.01em;
-      transition: all .2s var(--ease);
-      user-select: none;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-      transform: translateX(-100%);
-      transition: transform .6s;
-    }
-    
-    .btn:hover::before {
-      transform: translateX(100%);
-    }
-    
-    .btn:active { transform: translateY(1px) scale(0.98); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color: #000;
-      box-shadow: 0 8px 32px rgba(34,197,94,.35);
-    }
-    .btn-primary:hover { 
-      transform: translateY(-2px); 
-      box-shadow: 0 12px 40px rgba(34,197,94,.5);
-    }
-
-    .btn-danger {
-      background: linear-gradient(135deg, var(--danger), #B91C1C);
+    .btn-danger{
+      background: linear-gradient(180deg, var(--danger), #B91C1C);
       color: #fff;
-      box-shadow: 0 8px 32px rgba(239,68,68,.3);
+      box-shadow: 0 16px 45px rgba(239,68,68,.24);
     }
-    .btn-danger:hover { 
-      transform: translateY(-2px); 
-      box-shadow: 0 12px 40px rgba(239,68,68,.45);
-    }
+    .btn-danger:hover{ filter: brightness(1.06); transform: translateY(-1px); }
 
-    /* Badges */
-    .badge {
-      display: inline-flex; 
-      align-items: center; 
-      gap: .4rem;
-      border-radius: 9999px; 
-      padding: .5rem 1rem;
-      background: rgba(245,158,11,.15);
+    .badge{
+      display:inline-flex; align-items:center; gap:.5rem;
+      border-radius: 9999px; padding: .45rem .8rem;
+      background: rgba(245,158,11,.12);
       border: 1px solid rgba(245,158,11,.25);
-      color: rgba(255,255,255,.95);
-      font-weight: 700;
-      font-size: .85rem;
-      animation: badgePop .5s var(--ease) both;
+      color: rgba(255,255,255,.92);
+      font-weight: 800;
+      font-size: .9rem;
     }
 
-    .pill {
-      display: inline-flex; 
-      align-items: center; 
-      gap: .4rem;
-      border-radius: 9999px; 
-      padding: .5rem 1rem;
+    .pill{
+      display:inline-flex; align-items:center; gap:.45rem;
+      border-radius: 9999px; padding: .42rem .74rem;
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.20);
+      color: rgba(234,240,255,.92);
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .fadeUp{ animation: fadeUp .55s var(--ease) both; }
+    @keyframes fadeUp{ from{ opacity:0; transform: translateY(12px);} to{ opacity:1; transform: translateY(0);} }
+
+    .kpi{
+      border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+
+    .card{
       border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.8);
-      font-weight: 600;
-      font-size: .85rem;
-    }
-
-    /* KPI Cards */
-    .kpi {
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 16px 20px;
-      transition: all .3s var(--ease);
-    }
-    .kpi:hover {
-      border-color: rgba(34,197,94,.25);
-      transform: translateY(-2px);
-    }
-
-    /* Feature Cards */
-    .card {
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04);
-      border-radius: 20px;
-      padding: 20px;
-      transition: all .3s var(--ease);
+      background: rgba(255,255,255,.06);
+      border-radius: 22px;
+      padding: 18px;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
       will-change: transform;
     }
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(34,197,94,.25);
-      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(34,197,94,.28);
+      box-shadow: 0 18px 70px rgba(0,0,0,.45);
     }
 
-    /* Testimonial Cards */
-    .testimonial-card {
-      background: rgba(19, 24, 36, 0.8);
-      padding: 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 40px rgba(0,0,0,.4);
-      transition: all .3s var(--ease);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    
-    .testimonial-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .testimonial-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(34,197,94,.2);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    }
-    
-    .testimonial-card img {
-      width: 100%;
-      border-radius: 14px;
-      margin-bottom: 16px;
-      transition: transform .3s var(--ease);
-    }
-    
-    .testimonial-card:hover img {
-      transform: scale(1.02);
-    }
-
-    .stars {
-      color: #f5c542;
-      font-size: 16px;
-      margin-bottom: 8px;
-      display: flex;
-      gap: 2px;
-    }
-    
-    .star {
-      opacity: 0;
-      transform: scale(0);
-      animation: starPop .3s var(--ease) forwards;
-    }
-
-    .testimonial-card h4 {
-      color: white;
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 1.1rem;
-    }
-
-    .testimonial-card p {
-      color: rgba(255,255,255,.75);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* Big Number */
-    .bigNumber {
-      font-weight: 900;
+    .bigNumber{
+      font-weight: 950;
       letter-spacing: -0.03em;
     }
 
-    /* Floating CTA */
-    .floating-cta {
+    /* CTA flutuante */
+    .floating-cta{
       position: fixed;
       left: 0; right: 0;
       bottom: 0;
       z-index: 60;
-      padding: 16px;
-      background: linear-gradient(180deg, transparent, rgba(10,10,10,.95) 40%, rgba(10,10,10,1));
-      border-top: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(20px);
-      transform: translateY(100%);
-      animation: slideUp .6s var(--ease) 1s forwards;
+      padding: 12px;
+      background: linear-gradient(180deg, rgba(7,10,15,0), rgba(7,10,15,.92) 35%, rgba(7,10,15,.98));
+      border-top: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
     }
 
     /* FAQ */
-    .faq-item { 
-      border: 1px solid rgba(255,255,255,.08); 
-      border-radius: 18px; 
-      overflow: hidden; 
-      background: rgba(255,255,255,.03);
-      transition: all .3s var(--ease);
-    }
-    
-    .faq-item:hover {
-      border-color: rgba(255,255,255,.15);
-    }
-    
-    .faq-item.active {
-      border-color: rgba(34,197,94,.25);
-      background: rgba(34,197,94,.03);
-    }
-    
-    .faq-q { 
-      width: 100%; 
-      text-align: left; 
-      padding: 18px 20px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between; 
-      gap: 14px; 
-      font-weight: 700;
-      color: white;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: color .2s;
-    }
-    
-    .faq-q:hover {
-      color: var(--brand);
-    }
-    
-    .faq-a { 
-      max-height: 0; 
-      overflow: hidden; 
-      transition: max-height .4s var(--ease), padding .4s var(--ease); 
-      padding: 0 20px; 
-      color: rgba(255,255,255,.75);
-      line-height: 1.6;
-    }
-    
-    .faq-item.active .faq-a { 
-      max-height: 300px; 
-      padding-bottom: 18px; 
-    }
-    
-    .faq-icon { 
-      width: 32px; 
-      height: 32px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      border-radius: 10px; 
-      background: rgba(255,255,255,.06); 
-      border: 1px solid rgba(255,255,255,.1); 
-      font-weight: 700;
-      font-size: 1.2rem;
-      transition: all .3s var(--ease);
-    }
-    
-    .faq-item.active .faq-icon {
-      background: var(--brand);
-      border-color: var(--brand);
-      color: #000;
-      transform: rotate(45deg);
-    }
+    .faq-item{ border: 1px solid rgba(255,255,255,.12); border-radius: 18px; overflow:hidden; background: rgba(255,255,255,.05); }
+    .faq-q{ width: 100%; text-align:left; padding: 16px 16px; display:flex; align-items:center; justify-content:space-between; gap: 14px; font-weight: 900; }
+    .faq-a{ max-height: 0; overflow: hidden; transition: max-height .35s var(--ease); padding: 0 16px; color: rgba(234,240,255,.82); }
+    .faq-item.active .faq-a{ max-height: 260px; padding-bottom: 16px; }
+    .faq-icon{ width: 34px; height: 34px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); font-weight: 900; }
 
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes badgePop {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    
-    @keyframes starPop {
-      to { opacity: 1; transform: scale(1); }
-    }
-    
-    @keyframes slideUp {
-      to { transform: translateY(0); }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(34,197,94,.3); }
-      50% { box-shadow: 0 0 40px rgba(34,197,94,.6); }
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    /* Scroll reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all .6s var(--ease);
-    }
-    
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Stagger delays */
-    .reveal:nth-child(1) { transition-delay: 0s; }
-    .reveal:nth-child(2) { transition-delay: .1s; }
-    .reveal:nth-child(3) { transition-delay: .2s; }
-    .reveal:nth-child(4) { transition-delay: .3s; }
-    .reveal:nth-child(5) { transition-delay: .4s; }
-    .reveal:nth-child(6) { transition-delay: .5s; }
-
-    /* Hero card float */
-    .hero-card-float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    /* Price counter */
-    .price-counter {
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* Glow effect */
-    .glow-green {
-      box-shadow: 0 0 40px rgba(34,197,94,.2);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
+    /* Responsivo */
+    @media (max-width: 768px){
       .btn { width: 100%; }
-      .testimonial-card { margin-bottom: 16px; }
-    }
-
-    /* Selection */
-    ::selection {
-      background: rgba(34,197,94,.3);
-      color: white;
     }
   </style>
-<base target="_blank">
 </head>
 
 <body>
-  <!-- Background -->
-  <div class="bg-gradient"></div>
-
   <!-- TOP BAR -->
   <header class="sticky top-0 z-50">
     <div class="glass">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center font-black text-black text-sm">IA</div>
+          <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black">IA</div>
           <div class="leading-tight">
-            <div class="font-bold tracking-tight text-white">Dinheiro com IA do Zero</div>
-            <div class="text-xs text-white/60">Método direto • Aplicação • Venda</div>
+            <div class="font-extrabold tracking-tight">Dinheiro com IA do Zero</div>
+            <div class="text-xs text-white/70">Método direto • Grupo VIP • Gratuito</div>
           </div>
         </div>
-        <a href="#oferta" class="btn btn-primary text-sm hidden sm:flex">
-          Quero acessar agora <span>→</span>
-        </a>
+        <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary text-sm">Entrar no Grupo <span>→</span></a>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO (Nível 2-3: problema -> solução) -->
   <main class="max-w-6xl mx-auto px-4">
-    <section class="pt-14 pb-12">
-      <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <!-- Left Column -->
-        <div class="reveal">
-          <div class="flex flex-wrap gap-2 mb-5">
-            <span class="badge">⚡ Oportunidade agora</span>
-            <span class="pill">Para iniciantes</span>
+    <section class="pt-12 pb-10">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="fadeUp">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="badge">⚠️ Vagas limitadas no grupo</span>
+            <span class="pill">Acesso Gratuito</span>
             <span class="pill">Sem aparecer</span>
           </div>
 
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight text-white">
-            Pare de <span class="text-white/60">só assistir</span> outros ganhando dinheiro com IA.
-            <span class="text-emerald-400">Copie um método</span> e comece do zero.
+          <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+            Pare de <span class="text-white/70">só assistir</span> outros ganhando dinheiro com IA.
+            <span class="text-[var(--brand)]">Entre no grupo</span> e comece do zero.
           </h1>
 
-          <p class="mt-5 text-lg text-white/70 leading-relaxed max-w-xl">
-            Um passo a passo direto para transformar IA em renda no digital — com foco em execução e venda.
+          <p class="mt-4 text-lg text-white/80 leading-relaxed">
+            Um passo a passo direto para transformar IA em renda no digital — com foco em execução e venda. 
+            Vou liberar o acesso ao método dentro do nosso grupo VIP de forma 100% gratuita.
           </p>
 
-          <!-- Social Proof -->
-          <div class="mt-6 glass-card inline-flex items-center gap-4 px-5 py-4">
-            <div class="flex -space-x-2">
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border-2 border-[#0a0a0a] flex items-center justify-center text-xs font-bold text-black">A</div>
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-[#0a0a0a] flex items-center justify-center text-xs font-bold text-white">B</div>
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-[#0a0a0a] flex items-center justify-center text-xs font-bold text-white">C</div>
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-[#0a0a0a] flex items-center justify-center text-xs font-bold text-black">D</div>
-            </div>
-            <p class="text-sm text-white/80">
-              Eu usei essa lógica e fiz <span class="text-emerald-400 font-bold">R$ 15.000 em 2 semanas e meia</span>
-            </p>
-          </div>
-
-          <!-- CTAs -->
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#vsl" class="btn btn-danger group">
-              Quero ver como funciona 
-              <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </a>
-            <a href="#oferta" class="btn btn-primary group" style="animation: pulse-glow 2s ease-in-out infinite;">
-              Quero acessar o método 
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-            </a>
+            <a href="#vsl" class="btn btn-danger">Como funciona <span>↓</span></a>
+            <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary">Entrar no Grupo VIP <span>→</span></a>
           </div>
 
-          <!-- Stats -->
-          <div class="mt-6 grid grid-cols-3 gap-3">
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="kpi">
-              <div class="text-xs text-white/50 mb-1">Tempo/dia</div>
-              <div class="text-lg font-bold text-white flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                30-60 min
-              </div>
+              <div class="text-xs text-white/70">Custo</div>
+              <div class="text-xl font-black">R$ 0,00</div>
             </div>
             <div class="kpi">
-              <div class="text-xs text-white/50 mb-1">Nível</div>
-              <div class="text-lg font-bold text-white flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                Do zero
-              </div>
+              <div class="text-xs text-white/70">Nível</div>
+              <div class="text-xl font-black">Do zero</div>
             </div>
             <div class="kpi">
-              <div class="text-xs text-white/50 mb-1">Foco</div>
-              <div class="text-lg font-bold text-white flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                Venda
-              </div>
+              <div class="text-xs text-white/70">Foco</div>
+              <div class="text-xl font-black">Renda</div>
             </div>
           </div>
 
-          <p class="mt-4 text-xs text-white/40">
-            *Resultados variam conforme execução. Conteúdo educacional; não é promessa de renda garantida.
+          <p class="mt-4 text-xs text-white/60">
+            *Acesso liberado apenas para quem estiver no grupo oficial.
           </p>
         </div>
 
-        <!-- Right Column - Hero Card -->
-        <div class="reveal hero-card-float" style="transition-delay: .2s;">
-          <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
+        <!-- BOX PROVA/MECANISMO -->
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-5">
             <div class="flex items-start justify-between gap-3">
               <div>
-                <div class="text-sm text-white/50 font-medium mb-1">O que você vai copiar</div>
-                <div class="text-2xl font-bold text-white tracking-tight">Mecanismo Simples de Renda com IA</div>
-                <div class="text-sm text-emerald-400 mt-1">Ferramenta → Aplicação → Oferta → Venda</div>
+                <div class="text-sm text-white/70 font-semibold">O que você vai receber no grupo</div>
+                <div class="text-2xl font-black tracking-tight mt-1">Mecanismo de Renda com IA</div>
+                <div class="text-sm text-white/70 mt-1">Ferramentas → Aplicação → Venda</div>
               </div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                <svg class="w-6 h-6 text-emerald-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--accent)]">★</div>
             </div>
 
-            <div class="softline my-5"></div>
+            <div class="softline my-4"></div>
 
-            <div class="space-y-3">
-              <div class="card group cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
-                  <div>
-                    <div class="font-bold text-white">Você escolhe um modelo</div>
-                    <div class="text-white/60 text-sm mt-1">Nada de ficar perdido com 30 opções. Você escolhe 1 e executa.</div>
-                  </div>
-                </div>
+            <div class="grid gap-3">
+              <div class="card">
+                <div class="font-black">1) Modelos Prontos</div>
+                <div class="text-white/70 text-sm mt-1">Nada de ficar perdido. Você escolhe um modelo validado e executa.</div>
               </div>
-              
-              <div class="card group cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
-                  <div>
-                    <div class="font-bold text-white">Você cria com IA (rápido)</div>
-                    <div class="text-white/60 text-sm mt-1">Templates, prompts e estrutura para produzir com velocidade.</div>
-                  </div>
-                </div>
+              <div class="card">
+                <div class="font-black">2) Criação Rápida</div>
+                <div class="text-white/70 text-sm mt-1">Templates e prompts para produzir conteúdos com velocidade máxima.</div>
               </div>
-              
-              <div class="card group cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
-                  <div>
-                    <div class="font-bold text-white">Você vende (sem aparecer)</div>
-                    <div class="text-white/60 text-sm mt-1">Mensagens + oferta + rotina de venda pelo WhatsApp/Instagram.</div>
-                  </div>
-                </div>
+              <div class="card">
+                <div class="font-black">3) Estratégia de Venda</div>
+                <div class="text-white/70 text-sm mt-1">Como transformar a IA em dinheiro no bolso sem precisar aparecer.</div>
               </div>
             </div>
 
             <div class="mt-5">
-              <a href="#oferta" class="btn btn-primary w-full group">
-                Quero começar agora 
-                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-              </a>
+              <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary w-full">Entrar no Grupo Agora <span>→</span></a>
             </div>
           </div>
         </div>
@@ -584,10 +281,10 @@
 
     <div class="softline"></div>
 
-    <!-- VIDEO -->
-    <section id="vsl" class="py-14">
-      <div class="reveal">
-        <div class="glass shadow-strong rounded-3xl p-5 border border-white/10">
+    <!-- VSL / VÍDEO -->
+    <section id="vsl" class="py-12">
+      <div class="fadeUp">
+        <div class="glass shadow-strong rounded-3xl p-4">
           <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black">
             <iframe 
               width="100%" 
@@ -600,14 +297,14 @@
             </iframe>
           </div>
 
-          <div class="mt-5 text-center">
-            <p class="text-white font-semibold text-lg">Veja como pessoas comuns estão transformando IA em renda real todos os dias.</p>
-            <p class="text-sm text-white/50 mt-2">Se você continuar só assistindo, vai continuar só assistindo os outros faturarem..</p>
+          <div class="mt-4 text-center">
+            <p class="text-white font-semibold">Veja como pessoas comuns estão transformando IA em renda real todos os dias.</p>
+            <p class="text-xs text-white/60 mt-1">O link para o treinamento completo será enviado dentro do grupo abaixo.</p>
           </div>
 
-          <div class="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#provas" class="btn btn-danger">Quero ver provas <span>→</span></a>
-            <a href="#oferta" class="btn btn-primary">Quero acessar o método <span>→</span></a>
+          <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#provas" class="btn btn-danger">Ver Resultados <span>→</span></a>
+            <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary">Entrar no Grupo VIP <span>→</span></a>
           </div>
         </div>
       </div>
@@ -616,70 +313,66 @@
     <div class="softline"></div>
 
     <!-- AGITAÇÃO -->
-    <section class="py-14">
-      <div class="grid lg:grid-cols-2 gap-8 items-start">
-        <div class="reveal">
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight">
-            Se você está quebrado(a) no digital, não é falta de "ferramenta".
-            É falta de <span class="text-amber-400">rota</span>.
+    <section class="py-12">
+      <div class="grid lg:grid-cols-2 gap-6 items-start">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            Se você está quebrado(a) no digital, não é falta de “ferramenta”.
+            É falta de <span class="text-[var(--accent)]">rota</span>.
           </h2>
-          <p class="mt-5 text-white/70 leading-relaxed text-lg">
-            A maioria vê conteúdo de IA e acha que é só "apertar botão".
-            Depois descobre que não sabe: o que vender, como vender, como cobrar, como entregar.
-            Aí trava.
+          <p class="mt-4 text-white/80 leading-relaxed">
+            A maioria vê conteúdo de IA e acha que é só “apertar botão”. 
+            No grupo, eu vou te mostrar a estratégia real de quem fatura alto com isso.
           </p>
 
-          <div class="mt-6 space-y-4">
+          <div class="mt-5 grid gap-3">
             <div class="card">
-              <div class="font-bold text-white text-lg">Você já tentou e ficou perdido?</div>
-              <div class="text-white/60 mt-1">Isso acontece porque te deram "pedaços", não um método fechado.</div>
+              <div class="font-black">Acesso Gratuito por Tempo Limitado</div>
+              <div class="text-white/70 text-sm mt-1">Vou liberar o material sem custo para os primeiros que entrarem.</div>
             </div>
             <div class="card">
-              <div class="font-bold text-white text-lg">Você tem pouco tempo?</div>
-              <div class="text-white/60 mt-1">Por isso o método foca no que dá dinheiro: execução + venda.</div>
+              <div class="font-black">Comunidade VIP</div>
+              <div class="text-white/70 text-sm mt-1">Networking com pessoas que estão executando o mesmo método.</div>
             </div>
           </div>
         </div>
 
-        <div class="reveal" style="transition-delay: .15s;">
-          <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
-            <div class="flex items-start gap-4">
-              <div class="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-              </div>
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-6">
+            <div class="flex items-start gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">✓</div>
               <div>
-                <div class="text-2xl font-bold text-white tracking-tight">A promessa é simples:</div>
-                <p class="text-white/70 mt-3 text-lg leading-relaxed">
-                  Você vai pegar um caminho que já foi usado na prática,
-                  com estrutura, mensagens e execução — para sair do zero e começar a vender.
+                <div class="text-2xl font-black tracking-tight">O que acontece no grupo:</div>
+                <p class="text-white/80 mt-2">
+                  Você recebe as orientações, os links das ferramentas e o passo a passo para começar a lucrar com IA ainda essa semana.
                 </p>
               </div>
             </div>
 
-            <div class="softline my-6"></div>
+            <div class="softline my-5"></div>
 
-            <div class="grid sm:grid-cols-2 gap-4">
+            <div class="grid sm:grid-cols-2 gap-3">
               <div class="card">
-                <div class="font-bold text-white">Sem aparecer</div>
-                <div class="text-white/60 text-sm mt-1">Venda por texto/rotina.</div>
+                <div class="font-black">100% Grátis</div>
+                <div class="text-white/70 text-sm mt-1">Entrada franca.</div>
               </div>
               <div class="card">
-                <div class="font-bold text-white">Sem confusão</div>
-                <div class="text-white/60 text-sm mt-1">Um método direto.</div>
+                <div class="font-black">Sem Spam</div>
+                <div class="text-white/70 text-sm mt-1">Apenas conteúdo.</div>
               </div>
               <div class="card">
-                <div class="font-bold text-white">Sem "milagre"</div>
-                <div class="text-white/60 text-sm mt-1">Só execução real.</div>
+                <div class="font-black">Iniciante</div>
+                <div class="text-white/70 text-sm mt-1">Fácil de aplicar.</div>
               </div>
               <div class="card">
-                <div class="font-bold text-white">Com roteiro</div>
-                <div class="text-white/60 text-sm mt-1">Passo a passo.</div>
+                <div class="font-black">Direto ao Ponto</div>
+                <div class="text-white/70 text-sm mt-1">Sem enrolação.</div>
               </div>
             </div>
 
-            <div class="mt-6">
-              <a href="#oferta" class="btn btn-danger w-full">Quero entrar agora <span>→</span></a>
-              <p class="text-xs text-white/50 mt-3 text-center">Se você adiar, alguém ocupa seu lugar.</p>
+            <div class="mt-5">
+              <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-danger w-full">Quero entrar no Grupo <span>→</span></a>
+              <p class="text-xs text-white/60 mt-2 text-center">As vagas do WhatsApp são limitadas a 256 pessoas.</p>
             </div>
           </div>
         </div>
@@ -689,51 +382,33 @@
     <div class="softline"></div>
 
     <!-- O QUE VOCÊ RECEBE -->
-    <section class="py-14">
-      <div class="reveal text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-          O que você recebe ao entrar
+    <section class="py-12">
+      <div class="fadeUp">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+          O que será liberado no Grupo
         </h2>
-        <p class="mt-4 text-white/60 text-lg max-w-2xl mx-auto">
-          Não é "motivação". É material aplicável com roteiro, modelos e execução.
+        <p class="mt-3 text-white/80 max-w-3xl">
+          Fique atento às mensagens do administrador. O conteúdo será entregue por lá.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="card reveal">
-          <div class="text-sm text-white/50 font-medium mb-2">Conteúdo principal</div>
-          <div class="text-xl font-bold text-white">Guia Método do Zero</div>
-          <div class="text-white/60 mt-3">Estrutura completa para sair do zero e transformar IA em venda.</div>
+      <div class="mt-7 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Metodologia</div>
+          <div class="text-xl font-black mt-1">Estratégia do Zero</div>
+          <div class="text-white/70 text-sm mt-2">Como configurar sua estrutura inicial de vendas com IA.</div>
         </div>
 
-        <div class="card reveal" style="transition-delay: .1s;">
-          <div class="text-sm text-white/50 font-medium mb-2">Execução</div>
-          <div class="text-xl font-bold text-white">Checklist de Ação</div>
-          <div class="text-white/60 mt-3">Você sabe exatamente o que fazer hoje, amanhã e no resto da semana.</div>
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Prática</div>
+          <div class="text-xl font-black mt-1">Checklist Diário</div>
+          <div class="text-white/70 text-sm mt-2">O roteiro exato do que postar e como abordar.</div>
         </div>
 
-        <div class="card reveal" style="transition-delay: .2s;">
-          <div class="text-sm text-white/50 font-medium mb-2">Venda</div>
-          <div class="text-xl font-bold text-white">Mensagens Prontas</div>
-          <div class="text-white/60 mt-3">Textos para abordagem, fechamento e follow-up sem parecer robô.</div>
-        </div>
-
-        <div class="card reveal" style="transition-delay: .3s;">
-          <div class="text-sm text-white/50 font-medium mb-2">IA aplicada</div>
-          <div class="text-xl font-bold text-white">Prompts Diretos</div>
-          <div class="text-white/60 mt-3">Prompts para produzir rápido (copy, oferta, scripts e ideias).</div>
-        </div>
-
-        <div class="card reveal" style="transition-delay: .4s;">
-          <div class="text-sm text-white/50 font-medium mb-2">Estrutura</div>
-          <div class="text-xl font-bold text-white">Modelos de Oferta</div>
-          <div class="text-white/60 mt-3">Modelo de oferta simples que vende sem complicar.</div>
-        </div>
-
-        <div class="card reveal" style="transition-delay: .5s;">
-          <div class="text-sm text-white/50 font-medium mb-2">Bônus</div>
-          <div class="text-xl font-bold text-white">Lista de Modelos de Renda</div>
-          <div class="text-white/60 mt-3">Você escolhe um caminho e executa (sem ficar pulando de galho).</div>
+        <div class="card fadeUp">
+          <div class="text-sm text-white/70 font-semibold">Copywriting</div>
+          <div class="text-xl font-black mt-1">Scripts Prontos</div>
+          <div class="text-white/70 text-sm mt-2">Textos que vendem qualquer produto usando inteligência artificial.</div>
         </div>
       </div>
     </section>
@@ -741,204 +416,113 @@
     <div class="softline"></div>
 
     <!-- PROVAS -->
-    <section id="provas" class="py-16">
-      <div class="reveal text-center mb-12">
-        <h2 class="text-4xl font-bold text-white tracking-tight">
-          O que os alunos estão dizendo
-        </h2>
-        <p class="text-white/60 mt-4 text-lg">
-          Resultados reais de pessoas comuns usando o método.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- PROVA 1 -->
-        <div class="testimonial-card" data-delay="0">
-          <img src="prova1.PNG" alt="Prova 1" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
-          </div>
-          <h4>Bianca</h4>
-          <p>"Primeira venda em menos de 48 horas aplicando exatamente o método."</p>
+    <section id="provas" class="py-20 bg-[#0b0f14]">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <h2 class="text-4xl font-black text-white">Resultados dos Alunos</h2>
+          <p class="text-white/60 mt-3">Pessoas que já aplicaram o que ensinamos no grupo.</p>
         </div>
 
-        <!-- PROVA 2 -->
-        <div class="testimonial-card" data-delay="100">
-          <img src="prova2.PNG" alt="Prova 2" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="testimonial-card">
+            <img src="prova1.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Bianca</h4>
+            <p>"Primeira venda em menos de 48 horas aplicando exatamente o método."</p>
           </div>
-          <h4>Rafael B</h4>
-          <p>"Nunca pensei que IA pudesse gerar dinheiro desse jeito."</p>
-        </div>
-
-        <!-- PROVA 3 -->
-        <div class="testimonial-card" data-delay="200">
-          <img src="prova3.PNG" alt="Prova 3" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
+          <div class="testimonial-card">
+            <img src="prova2.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Rafael B</h4>
+            <p>"Nunca pensei que IA pudesse gerar dinheiro desse jeito."</p>
           </div>
-          <h4>Luan Santos</h4>
-          <p>"Já consegui fazer minhas primeiras vendas."</p>
-        </div>
-
-        <!-- PROVA 4 -->
-        <div class="testimonial-card" data-delay="300">
-          <img src="prova4.PNG" alt="Prova 4" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
+          <div class="testimonial-card">
+            <img src="prova3.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Luan Santos</h4>
+            <p>"Já consegui fazer minhas primeiras vendas."</p>
           </div>
-          <h4>Gabriela Rocha</h4>
-          <p>"Um salário que nunca imaginei ter."</p>
-        </div>
-
-        <!-- PROVA 5 -->
-        <div class="testimonial-card" data-delay="400">
-          <img src="prova5.PNG" alt="Prova 5" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
+          <div class="testimonial-card">
+            <img src="prova4.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Gabriela Rocha</h4>
+            <p>"Um salário que nunca imaginei ter."</p>
           </div>
-          <h4>Jessica</h4>
-          <p>"Sua mentoria é direta e eficiente."</p>
-        </div>
-
-        <!-- PROVA 6 -->
-        <div class="testimonial-card" data-delay="500">
-          <img src="prova6.PNG" alt="Prova 6" loading="lazy">
-          <div class="stars">
-            <span class="star" style="animation-delay: 0s;">★</span>
-            <span class="star" style="animation-delay: 0.1s;">★</span>
-            <span class="star" style="animation-delay: 0.2s;">★</span>
-            <span class="star" style="animation-delay: 0.3s;">★</span>
-            <span class="star" style="animation-delay: 0.4s;">★</span>
+          <div class="testimonial-card">
+            <img src="prova5.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Jessica</h4>
+            <p>"Sua mentoria é direta e eficiente."</p>
           </div>
-          <h4>Rafael</h4>
-          <p>"Melhor decisão que tomei esse ano."</p>
+          <div class="testimonial-card">
+            <img src="prova6.PNG">
+            <div class="stars">★★★★★</div>
+            <h4>Rafael</h4>
+            <p>"Melhor decisão que tomei esse ano."</p>
+          </div>
         </div>
       </div>
     </section>
 
     <div class="softline"></div>
 
-    <!-- GARANTIA + OFERTA -->
-    <section id="oferta" class="py-14">
-      <div class="grid lg:grid-cols-2 gap-8 items-start">
-        <div class="reveal">
-          <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
-            Ou você entra agora… ou você continua assistindo de fora.
+    <!-- OFERTA (GRATUITA) -->
+    <section id="oferta" class="py-12">
+      <div class="grid lg:grid-cols-2 gap-6 items-start">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            Entre agora antes que o grupo lote.
           </h2>
-          <p class="mt-5 text-white/70 text-lg leading-relaxed">
-            Esse tipo de oportunidade não fica "boa" pra sempre. O jogo muda rápido.
-            <span class="text-emerald-400 font-bold">Quem executa primeiro, leva.</span>
+          <p class="mt-3 text-white/80">
+            A janela de oportunidade está aberta. Eu vou te dar o mapa de graça no WhatsApp.
           </p>
 
-          <div class="mt-6 card">
-            <div class="flex items-start gap-4">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                <span class="text-3xl font-black text-emerald-400">7</span>
-              </div>
+          <div class="mt-5 card">
+            <div class="flex items-start gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">!</div>
               <div>
-                <div class="font-bold text-xl text-white">Garantia de 7 dias</div>
-                <p class="text-white/60 mt-2 leading-relaxed">
-                  Você acessa, testa e decide. Se não fizer sentido, você pede reembolso dentro do prazo.
+                <div class="font-black text-xl">Acesso 100% Gratuito</div>
+                <p class="text-white/70 text-sm mt-1">
+                  Não cobraremos nada para você entrar no grupo e receber as primeiras aulas.
                 </p>
               </div>
             </div>
           </div>
-
-          <div class="mt-6 card">
-            <div class="font-bold text-xl text-white mb-4">Bônus (pra acelerar)</div>
-            <ul class="space-y-3 text-white/70">
-              <li class="flex items-center gap-3">
-                <span class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">✓</span>
-                Checklist de execução
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">✓</span>
-                Mensagens prontas (WhatsApp/Instagram)
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">✓</span>
-                Prompts diretos para copy e oferta
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">✓</span>
-                Modelos simples de renda com IA
-              </li>
-            </ul>
-          </div>
         </div>
 
-        <div class="reveal" style="transition-delay: .15s;">
-          <div class="glass shadow-strong rounded-3xl p-8 border border-white/10 relative overflow-hidden">
-            <!-- Glow effect -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[200px] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-            
-            <div class="relative z-10">
-              <div class="flex items-center justify-between gap-3 mb-6">
-                <div>
-                  <div class="text-sm text-white/50 font-medium mb-1">Você vai receber</div>
-                  <div class="text-2xl font-bold text-white tracking-tight">Dinheiro com IA do Zero</div>
-                  <div class="text-sm text-white/50 mt-1">Método direto • Aplicação • Venda</div>
-                </div>
-                <span class="badge text-xs">Acesso imediato</span>
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <div class="text-sm text-white/70 font-semibold">Status do Grupo</div>
+                <div class="text-2xl font-black tracking-tight">Dinheiro com IA do Zero</div>
+                <div class="text-sm text-white/60 mt-1">Vagas Abertas • Gratuito</div>
               </div>
+              <span class="badge">Online Agora</span>
+            </div>
 
-              <div class="softline mb-6"></div>
+            <div class="softline my-5"></div>
 
-              <!-- PREÇO -->
-              <div class="card text-center">
-                <div class="text-white/50 text-sm mb-2">Preço hoje</div>
-                <div class="text-6xl bigNumber text-white">
-                  R$ <span class="text-emerald-400 price-counter" data-target="97">0</span>,90
-                </div>
-                <div class="text-white/50 text-sm mt-2">ou em até 12x no cartão</div>
-
-                <a href="https://pay.kiwify.com.br/FM9Q2Am" class="btn btn-primary w-full mt-6" style="animation: pulse-glow 2s ease-in-out infinite;">
-                  Quero acessar agora <span>→</span>
-                </a>
-
-                <div class="mt-5 grid grid-cols-2 gap-3">
-                  <div class="kpi text-center">
-                    <div class="font-bold text-white">Do zero</div>
-                    <div class="text-white/50 text-xs">Sem pré-requisito</div>
-                  </div>
-                  <div class="kpi text-center">
-                    <div class="font-bold text-white">Sem aparecer</div>
-                    <div class="text-white/50 text-xs">Venda por texto</div>
-                  </div>
-                </div>
-
-                <p class="text-xs text-white/40 mt-4">
-                  Ao clicar em "Quero acessar agora", você será direcionado para o ambiente seguro de pagamento.
-                </p>
+            <div class="card">
+              <div class="text-white/70 text-sm">Investimento</div>
+              <div class="text-5xl bigNumber mt-1">
+                <span class="text-[var(--brand)]">GRÁTIS</span>
               </div>
+              <div class="text-white/60 text-sm mt-1">Acesso liberado ao grupo VIP</div>
 
-              <div class="mt-5 text-center">
-                <p class="text-amber-400 text-sm flex items-center justify-center gap-2">
-                  <span class="text-lg">⚠️</span>
-                  Se você não agir agora, você volta pra estaca zero.
-                </p>
+              <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary w-full mt-5">
+                Entrar no Grupo Agora <span>→</span>
+              </a>
+
+              <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="kpi">
+                  <div class="font-black">Sem Taxas</div>
+                  <div class="text-white/60 text-xs">Entrada Livre</div>
+                </div>
+                <div class="kpi">
+                  <div class="font-black">Grupo VIP</div>
+                  <div class="text-white/60 text-xs">No WhatsApp</div>
+                </div>
               </div>
             </div>
           </div>
@@ -949,87 +533,80 @@
     <div class="softline"></div>
 
     <!-- FAQ -->
-    <section class="py-14">
-      <div class="reveal text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">Perguntas frequentes</h2>
-        <p class="mt-4 text-white/60 text-lg">Objeção na mente mata compra. Aqui a gente destrava.</p>
+    <section class="py-12">
+      <div class="fadeUp">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">Perguntas frequentes</h2>
       </div>
 
-      <div class="max-w-3xl mx-auto space-y-4">
-        <div class="faq-item reveal">
+      <div class="mt-6 grid gap-3 max-w-3xl">
+        <div class="faq-item fadeUp">
           <button class="faq-q">
-            <span>Serve para iniciantes absolutos?</span>
+            <span>O grupo é realmente gratuito?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p>Sim. A estrutura foi feita para quem está no zero e precisa de rota, não de teoria.</p>
+            <p class="pt-0 mt-2">
+              Sim. A entrada no grupo e o acesso às orientações iniciais não têm custo algum.
+            </p>
           </div>
         </div>
 
-        <div class="faq-item reveal" style="transition-delay: .1s;">
+        <div class="faq-item fadeUp">
           <button class="faq-q">
-            <span>Preciso investir dinheiro em anúncios?</span>
+            <span>Como recebo o conteúdo?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p>Não necessariamente. Você pode começar no orgânico com rotina e mensagens. Tráfego é um "plus".</p>
+            <p class="mt-2">
+              Tudo será enviado diretamente no seu WhatsApp através do nosso grupo exclusivo.
+            </p>
           </div>
         </div>
 
-        <div class="faq-item reveal" style="transition-delay: .2s;">
+        <div class="faq-item fadeUp">
           <button class="faq-q">
-            <span>Quanto tempo por dia eu preciso?</span>
+            <span>Preciso de experiência prévia?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            <p>30 a 60 minutos com consistência. O método é focado em execução.</p>
-          </div>
-        </div>
-
-        <div class="faq-item reveal" style="transition-delay: .3s;">
-          <button class="faq-q">
-            <span>E se eu comprar e não gostar?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a">
-            <p>Você tem garantia de 7 dias. Testa e decide com tranquilidade.</p>
+            <p class="mt-2">
+              Não. O método é desenhado para quem está começando do zero absoluto.
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="mt-10 text-center reveal" style="transition-delay: .4s;">
-        <a href="#oferta" class="btn btn-danger px-10">
-          Quero acessar o método agora <span>→</span>
-        </a>
+      <div class="mt-8">
+        <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-danger w-full">Entrar no Grupo Agora <span>→</span></a>
       </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="pb-28 pt-10">
-      <div class="softline mb-8"></div>
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
-        <div class="text-center md:text-left">
-          <div class="font-bold text-white text-lg">Dinheiro com IA do Zero</div>
-          <div class="text-white/50">© <span id="year"></span> • Todos os direitos reservados.</div>
+    <footer class="pb-24 pt-8">
+      <div class="softline mb-6"></div>
+      <div class="text-sm text-white/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div>
+          <div class="font-bold text-white/80">Dinheiro com IA do Zero</div>
+          <div class="text-white/60">© <span id="year"></span> • Todos os direitos reservados.</div>
         </div>
-        <div class="flex items-center gap-4 text-white/50">
-          <a class="hover:text-white font-medium transition-colors" href="#oferta">Comprar Agora</a>
-          <span class="text-white/20">•</span>
-          <a class="hover:text-white font-medium transition-colors" href="#provas">Provas</a>
-          <span class="text-white/20">•</span>
-          <a class="hover:text-white font-medium transition-colors" href="#vsl">Vídeo</a>
+        <div class="text-white/60">
+          <a class="hover:text-white font-semibold" href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif">Entrar no Grupo</a>
+          <span class="text-white/30 mx-2">•</span>
+          <a class="hover:text-white font-semibold" href="#provas">Resultados</a>
+          <span class="text-white/30 mx-2">•</span>
+          <a class="hover:text-white font-semibold" href="#vsl">Vídeo</a>
         </div>
       </div>
     </footer>
   </main>
 
-  <!-- CTA FLOUTANTE -->
+  <!-- CTA FLUTUANTE -->
   <div class="floating-cta">
     <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
       <div class="text-sm text-white/80">
-        <span class="font-bold text-white">A hora é agora.</span> Clique e acesse o método.
+        <span class="font-black text-white">Grupo VIP Aberto.</span> Entre e garanta sua vaga.
       </div>
-      <a href="#oferta" class="btn btn-primary sm:w-auto w-full">Quero acessar <span>→</span></a>
+      <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary sm:w-auto w-full">Entrar no Grupo VIP <span>→</span></a>
     </div>
   </div>
 
@@ -1037,76 +614,34 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Scroll Reveal Animation
-    const revealElements = document.querySelectorAll('.reveal, .testimonial-card');
-    
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const delay = entry.target.dataset.delay || 0;
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, delay);
-          revealObserver.unobserve(entry.target);
+    // Smooth anchor
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if(href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if(!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
     });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    // Price Counter Animation
-    const priceCounter = document.querySelector('.price-counter');
-    if (priceCounter) {
-      const target = parseInt(priceCounter.dataset.target);
-      const duration = 1500;
-      const startTime = performance.now();
-      
-      const animatePrice = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(easeOut * target);
-        priceCounter.textContent = current;
-        
-        if (progress < 1) {
-          requestAnimationFrame(animatePrice);
-        }
-      };
-      
-      const priceObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            requestAnimationFrame(animatePrice);
-            priceObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      
-      priceObserver.observe(priceCounter);
-    }
 
     // FAQ Accordion
     document.querySelectorAll(".faq-item").forEach((item) => {
       const btn = item.querySelector(".faq-q");
+      const icon = item.querySelector(".faq-icon");
       btn.addEventListener("click", () => {
         const isOpen = item.classList.contains("active");
-        document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
-        if (!isOpen) {
+        document.querySelectorAll(".faq-item").forEach(i => {
+          i.classList.remove("active");
+          const ic = i.querySelector(".faq-icon");
+          if(ic) ic.textContent = "+";
+        });
+        if(!isOpen){
           item.classList.add("active");
+          icon.textContent = "−";
         }
-      });
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   </script>
