@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Como Fazer Dinheiro com IA do Zero | Método Direto</title>
+  <title>Mentoria IA do Zero | Diagnóstico Estratégico</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -65,7 +65,7 @@
   font-size:14px;
 }
 
-    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; scroll-behavior: smooth; }
     body{
       color: var(--text);
       background:
@@ -172,6 +172,77 @@
     .faq-item.active .faq-a{ max-height: 260px; padding-bottom: 16px; }
     .faq-icon{ width: 34px; height: 34px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); font-weight: 900; }
 
+    /* Quiz/Diagnóstico Styles */
+    .diagnostic-option {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      border-radius: 22px;
+      padding: 18px;
+      transition: all .2s var(--ease);
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .diagnostic-option:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34,197,94,.4);
+      background: rgba(34,197,94,.08);
+    }
+    .diagnostic-option.selected {
+      border-color: var(--brand);
+      background: rgba(34,197,94,.12);
+      box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+    }
+    .progress-bar {
+      height: 6px;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--brand);
+      border-radius: 999px;
+      transition: width .3s var(--ease);
+    }
+    .name-input {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9999px;
+      padding: 1rem 1.5rem;
+      color: white;
+      font-weight: 500;
+      width: 100%;
+      outline: none;
+      transition: all .2s var(--ease);
+      text-align: center;
+    }
+    .name-input:focus {
+      border-color: var(--brand);
+      background: rgba(34,197,94,.06);
+    }
+    .name-input::placeholder {
+      color: rgba(255,255,255,.4);
+    }
+    .step-indicator {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .credibility-seal {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.7);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
     /* Responsivo */
     @media (max-width: 768px){
       .btn { width: 100%; }
@@ -180,442 +251,844 @@
 </head>
 
 <body>
-  <!-- TOP BAR -->
-  <header class="sticky top-0 z-50">
-    <div class="glass">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black">IA</div>
-          <div class="leading-tight">
-            <div class="font-extrabold tracking-tight">Dinheiro com IA do Zero</div>
-            <div class="text-xs text-white/70">Método direto • Grupo VIP • Gratuito</div>
+  <!-- DIAGNÓSTICO ESTRATÉGICO (INICIAL) -->
+  <div id="diagnostic-container" class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl w-full">
+      <!-- Diagnostic Start Screen -->
+      <div id="diagnostic-start" class="glass shadow-strong rounded-3xl p-8 fadeUp">
+        <div class="text-center mb-8">
+          <div class="credibility-seal mx-auto">📊 +300 diagnósticos realizados</div>
+          <div class="w-20 h-20 rounded-3xl bg-[var(--brand)]/20 border border-[var(--brand)]/30 flex items-center justify-center text-4xl font-black mx-auto mb-4">📋</div>
+          <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">
+            Diagnóstico Estratégico
+          </h1>
+          <p class="text-white/80 text-lg mb-2">
+            Responda algumas perguntas rápidas para analisarmos<br>
+            seu momento atual no digital.
+          </p>
+          <p class="text-white/50 text-sm">
+            Leva menos de 30 segundos.
+          </p>
+        </div>
+        
+        <button onclick="startDiagnostic()" class="btn btn-primary w-full text-lg py-4">
+          Iniciar análise →
+        </button>
+      </div>
+
+      <!-- Diagnostic Questions (inicialmente oculto) -->
+      <div id="diagnostic-questions" class="hidden glass shadow-strong rounded-3xl p-8 fadeUp">
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-3">
+            <span class="step-indicator">Etapa <span id="current-step">1</span> de 6</span>
+            <span class="text-white/50 text-sm" id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
           </div>
         </div>
-        <a href="#oferta" class="btn btn-primary text-sm">Entrar no Grupo <span>→</span></a>
+
+        <div id="question-container">
+          <!-- Perguntas serão inseridas via JS -->
+        </div>
+      </div>
+
+      <!-- Diagnostic Result Screen (inicialmente oculto) -->
+      <div id="diagnostic-result" class="hidden glass shadow-strong rounded-3xl p-8 fadeUp">
+        <div id="analysis-screen" class="text-center">
+          <div class="w-20 h-20 rounded-3xl bg-[var(--accent)]/20 border border-[var(--accent)]/30 flex items-center justify-center text-4xl font-black mx-auto mb-4 animate-pulse">⏳</div>
+          <h2 class="text-3xl font-black mb-4">Analisando suas respostas...</h2>
+        </div>
+
+        <div id="result-screen" class="hidden">
+          <div class="text-center mb-8">
+            <div class="w-20 h-20 rounded-3xl bg-[var(--brand)]/20 border border-[var(--brand)]/30 flex items-center justify-center text-4xl font-black mx-auto mb-4">📊</div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight mb-4">
+              Baseado nas suas respostas,<br>
+              tudo indica que o que está faltando hoje<br>
+              não é mais informação.
+            </h2>
+            <p class="text-2xl font-black text-[var(--brand)] mb-4">
+              É DIRECIONAMENTO.
+            </p>
+            <p class="text-white/80 text-lg mb-6">
+              A maioria das pessoas tenta ganhar dinheiro online sozinha<br>
+              e acaba perdida entre estratégias, ferramentas e promessas.<br><br>
+              É exatamente por isso que eu criei a mentoria personalizada.
+            </p>
+          </div>
+
+          <div class="mb-4 text-center text-white/70 text-sm">
+            Para mostrar sua análise completa,<br>
+            me diga seu primeiro nome.
+          </div>
+
+          <div class="mb-6">
+            <input type="text" id="user-name" placeholder="Digite seu nome" class="name-input">
+          </div>
+
+          <button onclick="goToLanding()" class="btn btn-primary w-full text-lg py-4">
+            Ver minha análise →
+          </button>
+        </div>
       </div>
     </div>
-  </header>
+  </div>
 
-  <!-- HERO (Nível 2-3: problema -> solução) -->
-  <main class="max-w-6xl mx-auto px-4">
-    <section class="pt-12 pb-10">
-      <div class="grid lg:grid-cols-2 gap-8 items-start">
-        <div class="fadeUp">
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="badge">⚠️ Vagas limitadas no grupo</span>
-            <span class="pill">Acesso Gratuito</span>
-            <span class="pill">Sem aparecer</span>
-          </div>
-
-          <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
-            Pare de <span class="text-white/70">só assistir</span> outros ganhando dinheiro com IA.
-            <span class="text-[var(--brand)]">Entre no grupo</span> e comece do zero.
-          </h1>
-
-          <p class="mt-4 text-lg text-white/80 leading-relaxed">
-            Um passo a passo direto para transformar IA em renda no digital com foco em execução e venda. 
-            Vou liberar o acesso ao método dentro do nosso grupo VIP de forma 100% gratuita.
-          </p>
-
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#vsl" class="btn btn-danger">Como funciona <span>↓</span></a>
-            <a href="#oferta" class="btn btn-primary">Entrar no Grupo VIP <span>→</span></a>
-          </div>
-
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="kpi">
-              <div class="text-xs text-white/70">Custo</div>
-              <div class="text-xl font-black">R$ 0,00</div>
-            </div>
-            <div class="kpi">
-              <div class="text-xs text-white/70">Nível</div>
-              <div class="text-xl font-black">Do zero</div>
-            </div>
-            <div class="kpi">
-              <div class="text-xs text-white/70">Foco</div>
-              <div class="text-xl font-black">Renda</div>
+  <!-- LANDING PAGE (inicialmente oculta) -->
+  <div id="landing-container" class="hidden">
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-50">
+      <div class="glass">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black">IA</div>
+            <div class="leading-tight">
+              <div class="font-extrabold tracking-tight">Mentoria IA do Zero</div>
+              <div class="text-xs text-white/70">Estratégia personalizada • Atendimento individual</div>
             </div>
           </div>
-
-          <p class="mt-4 text-xs text-white/60">
-            *Acesso liberado apenas para quem estiver no grupo oficial.
-          </p>
-        </div>
-
-        <!-- BOX PROVA/MECANISMO -->
-        <div class="fadeUp">
-          <div class="glass shadow-strong rounded-3xl p-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="text-sm text-white/70 font-semibold">O que você vai receber no grupo</div>
-                <div class="text-2xl font-black tracking-tight mt-1">Mecanismo de Renda com IA</div>
-                <div class="text-sm text-white/70 mt-1">Ferramentas → Aplicação → Venda</div>
-              </div>
-              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--accent)]">★</div>
-            </div>
-
-            <div class="softline my-4"></div>
-
-            <div class="grid gap-3">
-              <div class="card">
-                <div class="font-black">1) Modelos Prontos</div>
-                <div class="text-white/70 text-sm mt-1">Nada de ficar perdido. Você escolhe um modelo validado e executa.</div>
-              </div>
-              <div class="card">
-                <div class="font-black">2) Criação Rápida</div>
-                <div class="text-white/70 text-sm mt-1">Templates e prompts para produzir conteúdos com velocidade máxima.</div>
-              </div>
-              <div class="card">
-                <div class="font-black">3) Estratégia de Venda</div>
-                <div class="text-white/70 text-sm mt-1">Como transformar a IA em dinheiro no bolso sem precisar aparecer.</div>
-              </div>
-            </div>
-
-            <div class="mt-5">
-              <a href="#oferta" class="btn btn-primary w-full">Entrar no Grupo Agora <span>→</span></a>
-            </div>
-          </div>
+          <a href="#oferta" class="btn btn-primary text-sm">FALAR COM HENRIQUE →</a>
         </div>
       </div>
-    </section>
+    </header>
 
-    <div class="softline"></div>
-
-    <!-- VSL / VÍDEO -->
-    <section id="vsl" class="py-12">
-      <div class="fadeUp">
-        <div class="glass shadow-strong rounded-3xl p-4">
-          <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black">
-            <iframe 
-              width="100%" 
-              height="100%" 
-              src="https://www.youtube.com/embed/UynCG_el504" 
-              title="Vídeo Apresentação"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
-          </div>
-
-          <div class="mt-4 text-center">
-            <p class="text-white font-semibold">Veja como pessoas comuns estão transformando IA em renda real todos os dias.</p>
-            <p class="text-xs text-white/60 mt-1">O link para o treinamento completo será enviado dentro do grupo abaixo.</p>
-          </div>
-
-          <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#provas" class="btn btn-danger">Ver Resultados <span>→</span></a>
-            <a href="#oferta" class="btn btn-primary">Entrar no Grupo VIP <span>→</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="softline"></div>
-
-    <!-- AGITAÇÃO -->
-    <section class="py-12">
-      <div class="grid lg:grid-cols-2 gap-6 items-start">
-        <div class="fadeUp">
-          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
-            Se você está quebrado(a) no digital, não é falta de “ferramenta”.
-            É falta de <span class="text-[var(--accent)]">rota</span>.
-          </h2>
-          <p class="mt-4 text-white/80 leading-relaxed">
-            A maioria vê conteúdo de IA e acha que é só “apertar botão”. 
-            No grupo, eu vou te mostrar a estratégia real de quem fatura alto com isso.
-          </p>
-
-          <div class="mt-5 grid gap-3">
-            <div class="card">
-              <div class="font-black">Acesso Gratuito por Tempo Limitado</div>
-              <div class="text-white/70 text-sm mt-1">Vou liberar o material sem custo para os primeiros que entrarem.</div>
+    <!-- HERO (Nível 2-3: problema -> solução) -->
+    <main class="max-w-6xl mx-auto px-4">
+      <section class="pt-12 pb-10">
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+          <div class="fadeUp">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="badge">⚠️ Vagas limitadas para mentoria</span>
+              <span class="pill">Atendimento individual</span>
+              <span class="pill">Estratégia sob medida</span>
             </div>
-            <div class="card">
-              <div class="font-black">Comunidade VIP</div>
-              <div class="text-white/70 text-sm mt-1">Networking com pessoas que estão executando o mesmo método.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="fadeUp">
-          <div class="glass shadow-strong rounded-3xl p-6">
-            <div class="flex items-start gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">✓</div>
-              <div>
-                <div class="text-2xl font-black tracking-tight">O que acontece no grupo:</div>
-                <p class="text-white/80 mt-2">
-                  Você recebe as orientações, os links das ferramentas e o passo a passo para começar a lucrar com IA ainda essa semana.
-                </p>
+            <h1 id="personalized-headline" class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+              <span id="user-name-display"></span>, talvez o que esteja faltando para você no digital<br>
+              não seja esforço.<br><br>
+              É a estratégia certa.
+            </h1>
+
+            <p class="mt-4 text-lg text-white/80 leading-relaxed">
+              Chega de conteúdo genérico. Vou te atender pessoalmente,<br>
+              entender seu momento e construir uma estratégia sob medida<br>
+              para você começar a vender com IA.
+            </p>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <a href="#vsl" class="btn btn-danger">COMO FUNCIONA ↓</a>
+              <a href="#oferta" class="btn btn-primary">FALAR COM HENRIQUE →</a>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="kpi">
+                <div class="text-xs text-white/70">Atendimento</div>
+                <div class="text-xl font-black">Individual</div>
+              </div>
+              <div class="kpi">
+                <div class="text-xs text-white/70">Nível</div>
+                <div class="text-xl font-black">Do zero</div>
+              </div>
+              <div class="kpi">
+                <div class="text-xs text-white/70">Foco</div>
+                <div class="text-xl font-black">Resultado</div>
               </div>
             </div>
 
-            <div class="softline my-5"></div>
-
-            <div class="grid sm:grid-cols-2 gap-3">
-              <div class="card">
-                <div class="font-black">100% Grátis</div>
-                <div class="text-white/70 text-sm mt-1">Entrada franca.</div>
-              </div>
-              <div class="card">
-                <div class="font-black">Sem Spam</div>
-                <div class="text-white/70 text-sm mt-1">Apenas conteúdo.</div>
-              </div>
-              <div class="card">
-                <div class="font-black">Iniciante</div>
-                <div class="text-white/70 text-sm mt-1">Fácil de aplicar.</div>
-              </div>
-              <div class="card">
-                <div class="font-black">Direto ao Ponto</div>
-                <div class="text-white/70 text-sm mt-1">Sem enrolação.</div>
-              </div>
-            </div>
-
-            <div class="mt-5">
-              <a href="#oferta" class="btn btn-danger w-full">Quero entrar no Grupo <span>→</span></a>
-              <p class="text-xs text-white/60 mt-2 text-center">As vagas do WhatsApp são limitadas a 256 pessoas.</p>
-            </div>
+            <p class="mt-4 text-xs text-white/60">
+              *Atendimento exclusivo pelo WhatsApp. Resposta pessoalmente.
+            </p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <div class="softline"></div>
-
-    <!-- O QUE VOCÊ RECEBE -->
-    <section class="py-12">
-      <div class="fadeUp">
-        <h2 class="text-3xl md:text-4xl font-black tracking-tight">
-          O que será liberado no Grupo
-        </h2>
-        <p class="mt-3 text-white/80 max-w-3xl">
-          Fique atento às mensagens do administrador. O conteúdo será entregue por lá.
-        </p>
-      </div>
-
-      <div class="mt-7 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="card fadeUp">
-          <div class="text-sm text-white/70 font-semibold">Metodologia</div>
-          <div class="text-xl font-black mt-1">Estratégia do Zero</div>
-          <div class="text-white/70 text-sm mt-2">Como configurar sua estrutura inicial de vendas com IA.</div>
-        </div>
-
-        <div class="card fadeUp">
-          <div class="text-sm text-white/70 font-semibold">Prática</div>
-          <div class="text-xl font-black mt-1">Checklist Diário</div>
-          <div class="text-white/70 text-sm mt-2">O roteiro exato do que postar e como abordar.</div>
-        </div>
-
-        <div class="card fadeUp">
-          <div class="text-sm text-white/70 font-semibold">Copywriting</div>
-          <div class="text-xl font-black mt-1">Scripts Prontos</div>
-          <div class="text-white/70 text-sm mt-2">Textos que vendem qualquer produto usando inteligência artificial.</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="softline"></div>
-
-    <!-- PROVAS -->
-    <section id="provas" class="py-20 bg-[#0b0f14]">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <h2 class="text-4xl font-black text-white">Resultados dos Alunos</h2>
-          <p class="text-white/60 mt-3">Pessoas que já aplicaram o que ensinamos no grupo.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="testimonial-card">
-            <img src="prova1.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Bianca</h4>
-            <p>"Primeira venda em menos de 48 horas aplicando exatamente o método."</p>
-          </div>
-          <div class="testimonial-card">
-            <img src="prova2.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Rafael B</h4>
-            <p>"Nunca pensei que IA pudesse gerar dinheiro desse jeito."</p>
-          </div>
-          <div class="testimonial-card">
-            <img src="prova3.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Luan Santos</h4>
-            <p>"Já consegui fazer minhas primeiras vendas."</p>
-          </div>
-          <div class="testimonial-card">
-            <img src="prova4.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Gabriela Rocha</h4>
-            <p>"Um salário que nunca imaginei ter."</p>
-          </div>
-          <div class="testimonial-card">
-            <img src="prova5.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Jessica</h4>
-            <p>"Sua mentoria é direta e eficiente."</p>
-          </div>
-          <div class="testimonial-card">
-            <img src="prova6.PNG">
-            <div class="stars">★★★★★</div>
-            <h4>Rafael</h4>
-            <p>"Melhor decisão que tomei esse ano."</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="softline"></div>
-
-    <!-- OFERTA (GRATUITA) -->
-    <section id="oferta" class="py-12">
-      <div class="grid lg:grid-cols-2 gap-6 items-start">
-        <div class="fadeUp">
-          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
-            Entre agora antes que o grupo lote.
-          </h2>
-          <p class="mt-3 text-white/80">
-            A janela de oportunidade está aberta. Eu vou te dar o mapa de graça no WhatsApp.
-          </p>
-
-          <div class="mt-5 card">
-            <div class="flex items-start gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">!</div>
-              <div>
-                <div class="font-black text-xl">Acesso 100% Gratuito</div>
-                <p class="text-white/70 text-sm mt-1">
-                  Não cobraremos nada para você entrar no grupo e receber as primeiras aulas.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fadeUp">
-          <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
-            <div class="flex items-center justify-between gap-3">
-              <div>
-                <div class="text-sm text-white/70 font-semibold">Status do Grupo</div>
-                <div class="text-2xl font-black tracking-tight">Dinheiro com IA do Zero</div>
-                <div class="text-sm text-white/60 mt-1">Vagas Abertas • Gratuito</div>
-              </div>
-              <span class="badge">Online Agora</span>
-            </div>
-
-            <div class="softline my-5"></div>
-
-            <div class="card">
-              <div class="text-white/70 text-sm">Investimento</div>
-              <div class="text-5xl bigNumber mt-1">
-                <span class="text-[var(--brand)]">GRÁTIS</span>
-              </div>
-              <div class="text-white/60 text-sm mt-1">Acesso liberado ao grupo VIP</div>
-
-              <!-- ESTE É O BOTÃO FINAL QUE REALMENTE LEVA AO WHATSAPP -->
-              <a href="https://chat.whatsapp.com/JCvr1CbAwqsHw38t2P8Fif" target="_blank" class="btn btn-primary w-full mt-5">
-                Entrar no Grupo Agora <span>→</span>
-              </a>
-
-              <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
-                <div class="kpi">
-                  <div class="font-black">Sem Taxas</div>
-                  <div class="text-white/60 text-xs">Entrada Livre</div>
+          <!-- BOX PROVA/MECANISMO -->
+          <div class="fadeUp">
+            <div class="glass shadow-strong rounded-3xl p-5">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="text-sm text-white/70 font-semibold">O que você terá acesso</div>
+                  <div class="text-2xl font-black tracking-tight mt-1">Mentoria Personalizada</div>
+                  <div class="text-sm text-white/70 mt-1">Estratégia → Acompanhamento → Resultado</div>
                 </div>
-                <div class="kpi">
-                  <div class="font-black">Grupo VIP</div>
-                  <div class="text-white/60 text-xs">No WhatsApp</div>
+                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--accent)]">★</div>
+              </div>
+
+              <div class="softline my-4"></div>
+
+              <div class="grid gap-3">
+                <div class="card">
+                  <div class="font-black">1) Diagnóstico Completo</div>
+                  <div class="text-white/70 text-sm mt-1">Vou analisar seu momento e criar uma estratégia do zero.</div>
+                </div>
+                <div class="card">
+                  <div class="font-black">2) Acompanhamento Real</div>
+                  <div class="text-white/70 text-sm mt-1">Nada de grupo genérico. É você + eu no privado.</div>
+                </div>
+                <div class="card">
+                  <div class="font-black">3) Plano de Ação</div>
+                  <div class="text-white/70 text-sm mt-1">Passo a passo prático para transformar IA em renda.</div>
                 </div>
               </div>
+
+              <div class="mt-5">
+                <a href="#oferta" class="btn btn-primary w-full">QUERO MINHA ESTRATÉGIA →</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="softline"></div>
+      <div class="softline"></div>
 
-    <!-- FAQ -->
-    <section class="py-12">
-      <div class="fadeUp">
-        <h2 class="text-3xl md:text-4xl font-black tracking-tight">Perguntas frequentes</h2>
-      </div>
+      <!-- VSL / VÍDEO -->
+      <section id="vsl" class="py-12">
+        <div class="fadeUp">
+          <div class="glass shadow-strong rounded-3xl p-4">
+            <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/UynCG_el504" 
+                title="Vídeo Apresentação"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
 
-      <div class="mt-6 grid gap-3 max-w-3xl">
-        <div class="faq-item fadeUp">
-          <button class="faq-q">
-            <span>O grupo é realmente gratuito?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a">
-            <p class="pt-0 mt-2">
-              Sim. A entrada no grupo e o acesso às orientações iniciais não têm custo algum.
-            </p>
+            <div class="mt-4 text-center">
+              <p class="text-white font-semibold">Veja como uma estratégia personalizada pode mudar seus resultados.</p>
+              <p class="text-xs text-white/60 mt-1">Ao clicar no botão, você será atendido por mim no WhatsApp privado.</p>
+            </div>
+
+            <div class="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="#provas" class="btn btn-danger">VER RESULTADOS →</a>
+              <a href="#oferta" class="btn btn-primary">FALAR COM HENRIQUE →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- SEÇÃO DE BENEFÍCIOS (NOVA) -->
+      <section class="py-16">
+        <div class="fadeUp text-center mb-10">
+          <span class="badge mb-4">🔥 O que você vai ter acesso</span>
+          <h2 class="text-4xl md:text-5xl font-black tracking-tight">
+            Mentoria Exclusiva
+          </h2>
+          <p class="text-white/70 text-lg max-w-2xl mx-auto mt-3">
+            Não é mais grupo. É atendimento personalizado com acompanhamento de verdade.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Grupo Privado de Acompanhamento</h3>
+              <p class="text-white/70 text-sm mt-1">Um espaço exclusivo para acompanhar sua evolução e alinhar estratégias.</p>
+            </div>
+          </div>
+
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Grupo particular (você + sócio + lead)</h3>
+              <p class="text-white/70 text-sm mt-1">Atendimento focado e privado para não perder nenhum detalhe.</p>
+            </div>
+          </div>
+
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Calls semanais</h3>
+              <p class="text-white/70 text-sm mt-1">Toda semana um encontro ao vivo para alinhar estratégia.</p>
+            </div>
+          </div>
+
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Acompanhamento individual</h3>
+              <p class="text-white/70 text-sm mt-1">Eu vou estar com você durante toda a jornada.</p>
+            </div>
+          </div>
+
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Reuniões particulares</h3>
+              <p class="text-white/70 text-sm mt-1">Para avaliar resultados e tirar dúvidas específicas.</p>
+            </div>
+          </div>
+
+          <div class="card flex items-start gap-4 p-5 fadeUp">
+            <div class="w-10 h-10 rounded-xl bg-[var(--brand)]/20 text-[var(--brand)] flex items-center justify-center text-2xl font-black shrink-0">✔️</div>
+            <div>
+              <h3 class="font-black text-xl">Estratégia personalizada</h3>
+              <p class="text-white/70 text-sm mt-1">Nada de fórmula pronta. É sob medida para você.</p>
+            </div>
           </div>
         </div>
 
-        <div class="faq-item fadeUp">
-          <button class="faq-q">
-            <span>Como recebo o conteúdo?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a">
-            <p class="mt-2">
-              Tudo será enviado diretamente no seu WhatsApp através do nosso grupo exclusivo.
+        <div class="text-center mt-10">
+          <a href="#oferta" class="btn btn-primary text-lg px-8">QUERO MINHA MENTORIA →</a>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- AGITAÇÃO -->
+      <section class="py-12">
+        <div class="grid lg:grid-cols-2 gap-6 items-start">
+          <div class="fadeUp">
+            <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+              Se você está quebrado(a) no<br>
+              digital, não é falta de<br>
+              “ferramenta”. É falta de<br>
+              direcionamento certo.
+            </h2>
+            <p class="mt-4 text-white/80 leading-relaxed">
+              A maioria vê conteúdo de IA e acha que só "apertar botão" já<br>
+              resolve. Na mentoria, vou te mostrar a estratégia real de quem<br>
+              quer sair da teoria e entrar no jogo com clareza.
             </p>
+
+            <div class="mt-5 grid gap-3">
+              <div class="card">
+                <div class="font-black">Atendimento Personalizado</div>
+                <div class="text-white/70 text-sm mt-1">Vou olhar seu caso individualmente, sem roteiro pronto.</div>
+              </div>
+              <div class="card">
+                <div class="font-black">Acompanhamento Contínuo</div>
+                <div class="text-white/70 text-sm mt-1">Não é só mentoria. É parceria. Estou contigo até o resultado.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fadeUp">
+            <div class="glass shadow-strong rounded-3xl p-6">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">✓</div>
+                <div>
+                  <div class="text-2xl font-black tracking-tight">Como funciona:</div>
+                  <p class="text-white/80 mt-2">
+                    Você me chama no WhatsApp, conversamos, entendo seu<br>
+                    momento e te apresento a estratégia ideal para você<br>
+                    começar a lucrar com IA.
+                  </p>
+                </div>
+              </div>
+
+              <div class="softline my-5"></div>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="card">
+                  <div class="font-black">Atendimento 1:1</div>
+                  <div class="text-white/70 text-sm mt-1">Privado e exclusivo.</div>
+                </div>
+                <div class="card">
+                  <div class="font-black">Sem Robô</div>
+                  <div class="text-white/70 text-sm mt-1">Sou eu do outro lado.</div>
+                </div>
+                <div class="card">
+                  <div class="font-black">Iniciando</div>
+                  <div class="text-white/70 text-sm mt-1">Tudo começa sem enrolação.</div>
+                </div>
+                <div class="card">
+                  <div class="font-black">Sob Medida</div>
+                  <div class="text-white/70 text-sm mt-1">Estratégia única.</div>
+                </div>
+              </div>
+
+              <div class="mt-5">
+                <a href="#oferta" class="btn btn-danger w-full">QUERO FALAR COM HENRIQUE →</a>
+                <p class="text-xs text-white/60 mt-2 text-center">Atendimento limitado para manter a qualidade.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- O QUE VOCÊ RECEBE -->
+      <section class="py-12">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+            O que você leva na Mentoria
+          </h2>
+          <p class="mt-3 text-white/80 max-w-3xl">
+            Não é só conteúdo gravado. É acompanhamento real, individual e personalizado.
+          </p>
+        </div>
+
+        <div class="mt-7 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="card fadeUp">
+            <div class="text-sm text-white/70 font-semibold">Metodologia</div>
+            <div class="text-xl font-black mt-1">Estratégia Sob Medida</div>
+            <div class="text-white/70 text-sm mt-2">Plano de ação feito para seu momento e objetivo.</div>
+          </div>
+
+          <div class="card fadeUp">
+            <div class="text-sm text-white/70 font-semibold">Acompanhamento</div>
+            <div class="text-xl font-black mt-1">Calls Semanais</div>
+            <div class="text-white/70 text-sm mt-2">Toda semana nos encontramos para alinhar e ajustar a rota.</div>
+          </div>
+
+          <div class="card fadeUp">
+            <div class="text-sm text-white/70 font-semibold">Material Exclusivo</div>
+            <div class="text-xl font-black mt-1">Scripts e Modelos</div>
+            <div class="text-white/70 text-sm mt-2">Tudo que você precisa para colocar em prática.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- PROVAS -->
+      <section id="provas" class="py-20 bg-[#0b0f14]">
+        <div class="max-w-6xl mx-auto px-4">
+          <div class="text-center mb-14">
+            <h2 class="text-4xl font-black text-white">Resultados dos Mentorados</h2>
+            <p class="text-white/60 mt-3">Pessoas que já aplicaram a estratégia personalizada.</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="testimonial-card">
+              <img src="prova1.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Bianca</h4>
+              <p>"Primeiras vendas em menos de 48 horas seguindo exatamente o método."</p>
+            </div>
+            <div class="testimonial-card">
+              <img src="prova2.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Rafael B</h4>
+              <p>"Nunca pensei que IA pudesse gerar dinheiro desse jeito."</p>
+            </div>
+            <div class="testimonial-card">
+              <img src="prova3.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Luan Santos</h4>
+              <p>"Já consegui ter minhas primeiras vendas."</p>
+            </div>
+            <div class="testimonial-card">
+              <img src="prova4.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Gabriela Rocha</h4>
+              <p>"Um salto que eu nunca imaginei ter."</p>
+            </div>
+            <div class="testimonial-card">
+              <img src="prova5.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Jessica</h4>
+              <p>"Sua mentoria é direta e eficiente."</p>
+            </div>
+            <div class="testimonial-card">
+              <img src="prova6.PNG">
+              <div class="stars">★★★★★</div>
+              <h4>Rafael</h4>
+              <p>"Melhor decisão que tomei esse ano."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- OFERTA (AGORA É WHATSAPP PARTICULAR) -->
+      <section id="oferta" class="py-12">
+        <div class="grid lg:grid-cols-2 gap-6 items-start">
+          <div class="fadeUp">
+            <h2 class="text-3xl md:text-4xl font-black tracking-tight">
+              Fale direto comigo agora.
+            </h2>
+            <p class="mt-3 text-white/80">
+              Chega de conteúdo solto. Vamos construir JUNTOS a estratégia certa<br>
+              para você.
+            </p>
+
+            <div class="mt-5 card">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-black text-[var(--brand)]">!</div>
+                <div>
+                  <div class="font-black text-xl">Atendimento 100% Humanizado</div>
+                  <p class="text-white/70 text-sm mt-1">
+                    Sou eu, Henrique, que vou te atender. Nada de robô ou atendente.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fadeUp">
+            <div class="glass shadow-strong rounded-3xl p-6 border border-white/10">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="text-sm text-white/70 font-semibold">Status</div>
+                  <div class="text-2xl font-black tracking-tight">Mentoria IA do Zero</div>
+                  <div class="text-sm text-white/60 mt-1">Atendimento individual • Privado</div>
+                </div>
+                <span class="badge">Online Agora</span>
+              </div>
+
+              <div class="softline my-5"></div>
+
+              <div class="card">
+                <div class="text-white/70 text-sm">Investimento</div>
+                <div class="text-5xl bigNumber mt-1">
+                  <span class="text-[var(--brand)]">SOB MEDIDA</span>
+                </div>
+                <div class="text-white/60 text-sm mt-1">Consultoria personalizada com acompanhamento real</div>
+
+                <!-- BOTÃO ATUALIZADO COM SEU LINK DO WHATSAPP -->
+                <a href="https://wa.me/qr/TL4VHU2WBM53K1" target="_blank" class="btn btn-primary w-full mt-5">
+                  FALAR COM HENRIQUE AGORA →
+                </a>
+
+                <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                  <div class="kpi">
+                    <div class="font-black">Atendimento 1:1</div>
+                    <div class="text-white/60 text-xs">Privado</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="font-black">Estratégia Única</div>
+                    <div class="text-white/60 text-xs">Para você</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="softline"></div>
+
+      <!-- FAQ -->
+      <section class="py-12">
+        <div class="fadeUp">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">Perguntas frequentes</h2>
+        </div>
+
+        <div class="mt-6 grid gap-3 max-w-3xl">
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Como funciona a mentoria?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="pt-0 mt-2">
+                Você fala diretamente comigo no WhatsApp. Eu entendo seu momento,<br>
+                seus objetivos e te explico como funciona a mentoria personalizada.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>É atendimento em grupo?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Não. O contato inicial é direto comigo no WhatsApp e a proposta da<br>
+                mentoria é entregar acompanhamento individual e estratégico.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Preciso de experiência prévia?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Não. A mentoria foi pensada para quem está começando do zero e<br>
+                precisa de clareza para entrar no digital do jeito certo.
+              </p>
+            </div>
+          </div>
+
+          <!-- NOVAS PERGUNTAS ADICIONADAS ABAIXO -->
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Quanto custa a mentoria?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="pt-0 mt-2">
+                O investimento depende do seu momento e do nível de acompanhamento necessário. Primeiro conversamos no WhatsApp, entendo sua situação e te explico exatamente como funciona a mentoria e os valores.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Em quanto tempo posso ter resultados?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Isso depende da sua dedicação e execução. Alguns mentorados conseguem resultados nas primeiras semanas, enquanto outros levam um pouco mais de tempo. O foco da mentoria é criar um caminho claro para você começar a gerar resultados no digital.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Preciso aparecer na internet?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Não necessariamente. Existem estratégias que permitem vender no digital sem precisar aparecer. Durante a mentoria vamos definir a abordagem que faz mais sentido para o seu perfil.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Vou receber suporte durante a mentoria?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Sim. A mentoria inclui acompanhamento e alinhamentos estratégicos para garantir que você esteja aplicando tudo da forma correta e evoluindo com clareza.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>A mentoria serve para quem está começando do zero?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Sim. A mentoria foi pensada principalmente para quem está começando e precisa de direcionamento para entrar no digital com estratégia e não perder tempo com tentativas aleatórias.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fadeUp">
+            <button class="faq-q">
+              <span>Como começo?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">
+              <p class="mt-2">
+                Clique no botão "Falar com Henrique". Você será direcionado para o WhatsApp, onde vamos conversar, entender seu momento e ver se a mentoria é o caminho certo para você.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="faq-item fadeUp">
-          <button class="faq-q">
-            <span>Preciso de experiência prévia?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a">
-            <p class="mt-2">
-              Não. O método é desenhado para quem está começando do zero absoluto.
-            </p>
+        <div class="mt-8">
+          <a href="#oferta" class="btn btn-danger w-full">FALAR COM HENRIQUE AGORA →</a>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="pb-24 pt-8">
+        <div class="softline mb-6"></div>
+        <div class="text-sm text-white/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div>
+            <div class="font-bold text-white/80">Mentoria IA do Zero</div>
+            <div class="text-white/60">© 2025 • Todos os direitos reservados.</div>
+          </div>
+          <div class="text-white/60">
+            <a class="hover:text-white font-semibold" href="#oferta">Falar com Henrique</a>
+            <span class="text-white/30 mx-2">•</span>
+            <a class="hover:text-white font-semibold" href="#provas">Resultados</a>
+            <span class="text-white/30 mx-2">•</span>
+            <a class="hover:text-white font-semibold" href="#vsl">Vídeo</a>
           </div>
         </div>
-      </div>
-
-      <div class="mt-8">
-        <a href="#oferta" class="btn btn-danger w-full">Entrar no Grupo Agora <span>→</span></a>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="pb-24 pt-8">
-      <div class="softline mb-6"></div>
-      <div class="text-sm text-white/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-        <div>
-          <div class="font-bold text-white/80">Dinheiro com IA do Zero</div>
-          <div class="text-white/60">© <span id="year"></span> • Todos os direitos reservados.</div>
+        <div class="text-xs text-white/40 text-center mt-4">
+          Atendimento individual. Fale direto comigo agora.
         </div>
-        <div class="text-white/60">
-          <a class="hover:text-white font-semibold" href="#oferta">Entrar no Grupo</a>
-          <span class="text-white/30 mx-2">•</span>
-          <a class="hover:text-white font-semibold" href="#provas">Resultados</a>
-          <span class="text-white/30 mx-2">•</span>
-          <a class="hover:text-white font-semibold" href="#vsl">Vídeo</a>
-        </div>
-      </div>
-    </footer>
-  </main>
+      </footer>
+    </main>
 
-  <!-- CTA FLUTUANTE -->
-  <div class="floating-cta">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
-      <div class="text-sm text-white/80">
-        <span class="font-black text-white">Grupo VIP Aberto.</span> Entre e garanta sua vaga.
+    <!-- CTA FLUTUANTE -->
+    <div class="floating-cta">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div class="text-sm text-white/80">
+          <span class="font-black text-white">Atendimento Individual.</span> Fale direto comigo agora.
+        </div>
+        <a href="#oferta" class="btn btn-primary sm:w-auto w-full">FALAR COM HENRIQUE →</a>
       </div>
-      <a href="#oferta" class="btn btn-primary sm:w-auto w-full">Entrar no Grupo VIP <span>→</span></a>
     </div>
   </div>
 
   <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Diagnostic Data
+    const questions = [
+      {
+        text: "Qual dessas situações mais descreve seu momento hoje?",
+        options: [
+          "Nunca ganhei dinheiro online",
+          "Já tentei, mas nunca tive resultados consistentes",
+          "Já fiz algumas vendas, mas não consigo escalar",
+          "Estou completamente perdido e não sei por onde começar"
+        ]
+      },
+      {
+        text: "Qual é sua maior dificuldade hoje no digital?",
+        options: [
+          "Não sei qual estratégia seguir",
+          "Falta alguém que me mostre o caminho",
+          "Já tentei várias coisas e nada funcionou",
+          "Tenho medo de perder tempo e dinheiro de novo"
+        ]
+      },
+      {
+        text: "Há quanto tempo você tenta ganhar dinheiro no digital?",
+        options: [
+          "Estou começando agora",
+          "Alguns meses",
+          "Mais de 1 ano tentando",
+          "Já tentei várias vezes sem sucesso"
+        ]
+      },
+      {
+        text: "O que mais te frustra quando vê outras pessoas tendo resultados?",
+        options: [
+          "Parece fácil para elas, mas para mim nunca funciona",
+          "Sinto que estou sempre começando do zero",
+          "Falta alguém que me guie de verdade",
+          "Já consumi muito conteúdo e continuo perdido"
+        ]
+      },
+      {
+        text: "Qual seria seu objetivo ideal hoje?",
+        options: [
+          "Fazer minhas primeiras vendas",
+          "Criar uma renda extra consistente",
+          "Viver do digital",
+          "Escalar resultados"
+        ]
+      },
+      {
+        text: "Se alguém analisasse seu caso e te mostrasse exatamente o que fazer, você aplicaria?",
+        options: [
+          "Sim, estou pronto para mudar minha situação",
+          "Sim, se a estratégia fizer sentido",
+          "Talvez, dependendo da estratégia",
+          "Ainda tenho dúvidas"
+        ]
+      }
+    ];
 
-    // Smooth anchor
+    let currentQuestion = 0;
+    let answers = new Array(questions.length).fill(null);
+    let userName = '';
+
+    function startDiagnostic() {
+      document.getElementById('diagnostic-start').classList.add('hidden');
+      document.getElementById('diagnostic-questions').classList.remove('hidden');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const container = document.getElementById('question-container');
+      const q = questions[currentQuestion];
+      
+      let html = `
+        <h3 class="text-2xl font-black mb-6">${q.text}</h3>
+        <div class="space-y-3">
+      `;
+      
+      q.options.forEach((option, index) => {
+        const selectedClass = answers[currentQuestion] === index ? 'selected' : '';
+        html += `
+          <div class="diagnostic-option ${selectedClass}" onclick="selectOption(${index})">
+            ${option}
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      container.innerHTML = html;
+
+      // Update progress
+      document.getElementById('current-step').textContent = currentQuestion + 1;
+      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      document.getElementById('progress-fill').style.width = progress + '%';
+      document.getElementById('progress-percent').textContent = Math.round(progress) + '%';
+    }
+
+    function selectOption(index) {
+      answers[currentQuestion] = index;
+      
+      // Visual feedback
+      const options = document.querySelectorAll('.diagnostic-option');
+      options.forEach(opt => opt.classList.remove('selected'));
+      options[index].classList.add('selected');
+      
+      // Auto-advance after a brief delay
+      setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          currentQuestion++;
+          renderQuestion();
+        } else {
+          // Diagnostic completed
+          showAnalysis();
+        }
+      }, 300);
+    }
+
+    function showAnalysis() {
+      document.getElementById('diagnostic-questions').classList.add('hidden');
+      document.getElementById('diagnostic-result').classList.remove('hidden');
+      
+      // Show analysis for 2 seconds then show result
+      setTimeout(() => {
+        document.getElementById('analysis-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+      }, 2000);
+    }
+
+    function goToLanding() {
+      const nameInput = document.getElementById('user-name');
+      if (!nameInput.value.trim()) {
+        nameInput.style.borderColor = '#EF4444';
+        nameInput.style.borderWidth = '2px';
+        return;
+      }
+      
+      userName = nameInput.value.trim();
+      
+      // Save to localStorage for persistence
+      localStorage.setItem('userName', userName);
+      
+      // Hide diagnostic, show landing
+      document.getElementById('diagnostic-container').classList.add('hidden');
+      document.getElementById('landing-container').classList.remove('hidden');
+      
+      // Personalize headline
+      document.getElementById('user-name-display').textContent = userName;
+      
+      // Smooth scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Check if user already did the diagnostic
+    window.onload = function() {
+      const savedName = localStorage.getItem('userName');
+      if (savedName) {
+        // User already did diagnostic, show landing directly
+        document.getElementById('diagnostic-container').classList.add('hidden');
+        document.getElementById('landing-container').classList.remove('hidden');
+        document.getElementById('user-name-display').textContent = savedName;
+      }
+    };
+
+    // Smooth anchor for landing page
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const href = a.getAttribute('href');
@@ -648,4 +1121,3 @@
   </script>
 </body>
 </html>
-
